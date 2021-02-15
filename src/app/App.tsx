@@ -3,9 +3,12 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link
 } from "react-router-dom";
 import {routes} from "../routes";
+import Header from "../components/Header";
+
+import {Container} from '@material-ui/core';
+
 import './App.css';
 
 function App() {
@@ -15,8 +18,11 @@ function App() {
 
   return (
     <Router>
+      <Header/>
       <Switch>
-        {routeComponent}
+        <Container>
+          {routeComponent}
+        </Container>
       </Switch>
     </Router>
   );
