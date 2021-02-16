@@ -2,8 +2,6 @@ import React from 'react';
 import HomeItem from '../../components/HomeItem';
 import {Grid} from '@material-ui/core';
 
-import './styles.css';
-
 const Home: React.FC = () => {
   const products = [
     {

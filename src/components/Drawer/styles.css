@@ -6,7 +6,11 @@
 
 .navbar-drawer-list{
     min-width: 200px;
-    display: flex !important;
+    display: flex;
     justify-content: space-between;
     flex-direction: column;
+}
+
+.navbar-drawer-icon{
+    color: white;
 }

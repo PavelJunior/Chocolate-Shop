@@ -4,7 +4,6 @@ import {
   Drawer,
   ListItem,
   ListItemText,
-  Toolbar,
   List,
 } from '@material-ui/core';
 import {Menu} from '@material-ui/icons';
@@ -16,9 +15,10 @@ interface DrawerProps {
 }
 
 const SideDrawer: React.FC<DrawerProps> = ({navigationLinks}) => {
-  const [menuOpen, setMenuOpen] = useState<any>(false);
+  const [menuOpen, setMenuOpen] = useState<boolean>(false);
 
-  const toggleDrawer = (open: any) => (event: any) => {
+  const toggleDrawer = (open: boolean) => (event: any) => {
+    console.log(event);
     if (
       event.type === 'keydown' &&
       (event.key === 'Tab' || event.key === 'Shift')
@@ -53,11 +53,7 @@ const SideDrawer: React.FC<DrawerProps> = ({navigationLinks}) => {
   return (
     <>
       <IconButton edge="start" aria-label="menu" onClick={toggleDrawer(true)}>
-        <Menu
-          fontSize="large"
-          className="navbar-drawer-icon"
-          style={{color: 'white'}}
-        />
+        <Menu fontSize="large" className="navbar-drawer-icon" />
       </IconButton>
       <Drawer anchor="right" open={menuOpen} onClose={toggleDrawer(false)}>
         {drawerList()}

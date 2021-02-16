@@ -32,7 +32,7 @@ const Header: React.FC = () => {
   ));
 
   return (
-    <AppBar position="static" style={{marginBottom: '40px'}}>
+    <AppBar position="static" className="app-bar">
       <Toolbar>
         <Container className="navbar-container">
           <IconButton edge="start" color="inherit" aria-label="home">

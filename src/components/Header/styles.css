@@ -1,15 +1,19 @@
 .navbar-container, .navbar-list{
-    display: flex !important;
+    display: flex;
     justify-content: space-between;
     flex-direction: row;
 }
 
 .navbar-list-item{
-    width: inherit !important;
+    width: inherit;
 }
 
 .navbar-item-link {
     text-decoration: none;
     text-transform: uppercase;
     color: white;
+}
+
+.app-bar{
+   margin-bottom: 40px;
 }
