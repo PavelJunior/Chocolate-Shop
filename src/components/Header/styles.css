@@ -1,0 +1,15 @@
+.navbar-container, .navbar-list{
+    display: flex !important;
+    justify-content: space-between;
+    flex-direction: row;
+}
+
+.navbar-list-item{
+    width: inherit !important;
+}
+
+.navbar-item-link {
+    text-decoration: none;
+    text-transform: uppercase;
+    color: white;
+}

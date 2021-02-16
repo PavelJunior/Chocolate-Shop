@@ -1,3 +1,4 @@
+import React from 'react';
 import {Link} from 'react-router-dom';
 import {
   AppBar,
@@ -10,11 +11,28 @@ import {
   Toolbar,
 } from '@material-ui/core';
 import {Home} from '@material-ui/icons';
-import React from 'react';
+import Drawer from '../Drawer';
+import './styles.css';
 
-function Header() {
+const Header: React.FC = () => {
+  const navigationLinks: NavigationList = [
+    {title: `about us`, path: `/`},
+    {title: `product`, path: `/`},
+    {title: `blog`, path: `/`},
+    {title: `contact`, path: `/`},
+    {title: `faq`, path: `/`},
+  ];
+
+  const navLinkComponents = navigationLinks.map(({title, path}) => (
+    <ListItem className="navbar-list-item" button>
+      <Link to={path} className="navbar-item-link">
+        <ListItemText primary={title} />
+      </Link>
+    </ListItem>
+  ));
+
   return (
-    <AppBar position="static">
+    <AppBar position="static" style={{marginBottom: '40px'}}>
       <Toolbar>
         <Container className="navbar-container">
           <IconButton edge="start" color="inherit" aria-label="home">
@@ -25,23 +43,16 @@ function Header() {
               component="nav"
               aria-labelledby="main navigation"
               className="navbar-list">
-              <ListItem button className="navbar-list-item">
-                <ListItemText primary="Cart" />
-              </ListItem>
-              <ListItem button>
-                <ListItemText primary="About us" />
-              </ListItem>
-              <ListItem button>
-                <Link to="/">
-                  <ListItemText primary="Checkout" />
-                </Link>
-              </ListItem>
+              {navLinkComponents}
             </List>
+          </Hidden>
+          <Hidden mdUp>
+            <Drawer navigationLinks={navigationLinks} />
           </Hidden>
         </Container>
       </Toolbar>
     </AppBar>
   );
-}
+};
 
 export default Header;
