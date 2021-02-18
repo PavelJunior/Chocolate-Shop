@@ -1,4 +1,5 @@
 import Home from './pages/Home';
+import Product from './pages/Product';
 import Error404 from './pages/Error404';
 
 const routes: RoutesType = [
@@ -9,10 +10,14 @@ const routes: RoutesType = [
     exact: true,
   },
   {
-    name: 'error404',
+    name: 'product',
+    url: '/product/:id',
+    component: Product,
+    exact: true,
+  },
+  {
     url: '**',
     component: Error404,
-    exact: false,
   },
 ];
 
