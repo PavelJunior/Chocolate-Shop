@@ -24,7 +24,7 @@ const Header: React.FC = () => {
   ];
 
   const navLinkComponents = navigationLinks.map(({title, path}) => (
-    <ListItem className="navbar-list-item" button>
+    <ListItem key={title} className="navbar-list-item" button>
       <Link to={path} className="navbar-item-link">
         <ListItemText primary={title} />
       </Link>

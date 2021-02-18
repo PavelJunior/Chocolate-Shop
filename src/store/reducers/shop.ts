@@ -45,7 +45,37 @@ let initialState = {
 };
 
 const reducer = (state = initialState, action: any) => {
-  return state;
+  switch (action.type) {
+    case 'ADD_PRODUCT_TO_CART':
+      console.log(action.payload);
+      let updatedCart = [...state.cart];
+      const indexToUpdate = updatedCart.findIndex(
+        (p: any) => p.id === parseInt(action.payload.id),
+      );
+
+      if (indexToUpdate !== -1) {
+        // @ts-ignore
+        let itemToUpdate = {...updatedCart[indexToUpdate]};
+        itemToUpdate.quantity += action.payload.quantity;
+        // @ts-ignore
+        updatedCart[indexToUpdate] = itemToUpdate;
+      } else {
+        const newProductIndex = state.products.findIndex(
+          (p) => p.id === parseInt(action.payload.id),
+        );
+        const itemToAdd = {
+          ...state.products[newProductIndex],
+          quantity: action.payload.quantity,
+        };
+        // @ts-ignore
+        updatedCart.push(itemToAdd);
+      }
+
+      return {...state, cart: updatedCart};
+
+    default:
+      return state;
+  }
 };
 
 export default reducer;
