@@ -15,7 +15,7 @@ import Drawer from '../Drawer';
 import './styles.css';
 
 const Header: React.FC = () => {
-  const navigationLinks: NavigationList = [
+  const navigationLinks: NavigationItem[] = [
     {title: `about us`, path: `/`},
     {title: `product`, path: `/`},
     {title: `blog`, path: `/`},

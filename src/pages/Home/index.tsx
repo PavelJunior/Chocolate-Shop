@@ -1,10 +1,10 @@
 import React from 'react';
+
 import HomeItem from '../../components/HomeItem';
 import {Grid} from '@material-ui/core';
-
+import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
 
-import {Link} from 'react-router-dom';
 import {RouteComponentProps} from '../../routes/types';
 import {ShopStateProduct} from '../../store/types/shop';
 import {AppState} from '../../store/configureStore';

@@ -1,4 +1,7 @@
 import React, {useState} from 'react';
+
+import Error404 from '../../components/Error404';
+
 import {connect} from 'react-redux';
 import {ShopStateProduct} from '../../store/types/shop';
 import {AppState} from '../../store/configureStore';
@@ -6,7 +9,6 @@ import {Dispatch} from 'redux';
 import {AppActions} from '../../store/types/actions';
 import {addToCart} from '../../store/actions/shop';
 import {RouteComponentProps} from './../../routes/types';
-import Error404 from '../../components/Error404';
 
 interface ProductPageProps extends RouteComponentProps {}
 

@@ -11,7 +11,7 @@ import React, {useState} from 'react';
 import './styles.css';
 
 interface DrawerProps {
-  navigationLinks: NavigationList;
+  navigationLinks: NavigationItem[];
 }
 
 const SideDrawer: React.FC<DrawerProps> = ({navigationLinks}) => {
