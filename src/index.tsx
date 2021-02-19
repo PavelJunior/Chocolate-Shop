@@ -4,11 +4,8 @@ import './index.css';
 import App from './app/App';
 import {StylesProvider} from '@material-ui/core/styles';
 
-import reducers from './store/reducers';
 import {Provider} from 'react-redux';
-import {createStore} from 'redux';
-
-const store = createStore(reducers);
+import {store} from './store/configureStore';
 
 ReactDOM.render(
   <React.StrictMode>

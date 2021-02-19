@@ -20,7 +20,7 @@ const Header: React.FC = () => {
     {title: `product`, path: `/`},
     {title: `blog`, path: `/`},
     {title: `contact`, path: `/`},
-    {title: `faq`, path: `/`},
+    {title: `cart`, path: `/`},
   ];
 
   const navLinkComponents = navigationLinks.map(({title, path}) => (

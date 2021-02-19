@@ -1,6 +1,6 @@
-import Home from './pages/Home';
-import Product from './pages/Product';
-import Error404 from './pages/Error404';
+import Home from '../pages/Home';
+import Product from '../pages/Product';
+import Error404 from '../pages/Error404';
 
 const routes: RoutesType = [
   {
