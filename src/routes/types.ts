@@ -2,7 +2,7 @@ import * as H from 'history';
 
 interface MatchParams {
   name: string;
-  id: number;
+  id: string;
 }
 
 export interface match {

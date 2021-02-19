@@ -5,9 +5,20 @@ import {Grid} from '@material-ui/core';
 import {connect} from 'react-redux';
 
 import {Link} from 'react-router-dom';
+import {RouteComponentProps} from '../../routes/types';
+import {ShopStateProduct} from '../../store/types/shop';
+import {AppState} from '../../store/configureStore';
 
-const Home: React.FC = (props: any) => {
-  const items = props.products.map((item: any) => {
+interface HomePageProps extends RouteComponentProps {}
+
+interface LinkStateProps {
+  products: ShopStateProduct[];
+}
+
+type Props = HomePageProps & LinkStateProps;
+
+const Home: React.FC<Props> = (props) => {
+  const items = props.products.map((item) => {
     return (
       <Grid item xs={4} key={item.id}>
         <Link to={`product/${item.id}`}>
@@ -34,14 +45,10 @@ const Home: React.FC = (props: any) => {
   );
 };
 
-let mapStateToProps = (state: any) => {
+let mapStateToProps = (state: AppState): LinkStateProps => {
   return {
     products: state.shop.products,
   };
 };
 
-let mapDispatchToProps = (dispatch: any) => {
-  return {};
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Home);
+export default connect(mapStateToProps, null)(Home);

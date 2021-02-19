@@ -1,11 +1,8 @@
 import React from 'react';
+import Error404 from './../../components/Error404';
 
-const Home: React.FC = () => {
-  return (
-    <div>
-      <p>Error 404</p>
-    </div>
-  );
+const ErrorPage: React.FC = () => {
+  return <Error404 />;
 };
 
-export default Home;
+export default ErrorPage;
