@@ -16,11 +16,9 @@ import './styles.css';
 
 const Header: React.FC = () => {
   const navigationLinks: NavigationItem[] = [
+    {title: `home`, path: `/`},
+    {title: `cart`, path: `/cart`},
     {title: `about us`, path: `/`},
-    {title: `product`, path: `/`},
-    {title: `blog`, path: `/`},
-    {title: `contact`, path: `/`},
-    {title: `cart`, path: `/`},
   ];
 
   const navLinkComponents = navigationLinks.map(({title, path}) => (

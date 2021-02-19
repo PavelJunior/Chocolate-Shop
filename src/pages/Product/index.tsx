@@ -63,8 +63,6 @@ let mapStateToProps = (
   state: AppState,
   ownProps: RouteComponentProps,
 ): LinkStateProps => {
-  console.log(ownProps);
-
   const product = state.shop.products.find(
     (product) => product.id === parseInt(ownProps.match.params.id),
   );
@@ -77,7 +75,7 @@ let mapStateToProps = (
 let mapDispatchToProps = (
   dispatch: Dispatch<AppActions>,
 ): LinkDispatchProps => ({
-  onAddToCart: addToCart,
+  onAddToCart: (id, quantity) => dispatch(addToCart(id, quantity)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Product);
