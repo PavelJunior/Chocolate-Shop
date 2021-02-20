@@ -1,5 +1,15 @@
 import React from 'react';
 
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Paper,
+} from '@material-ui/core';
+
 import {connect} from 'react-redux';
 import {ShopStateCartItem} from '../../store/types/shop';
 import {AppState} from '../../store/configureStore';
@@ -31,38 +41,38 @@ const Cart: React.FC<Props> = (props) => {
     const total = item.quantity * item.price;
 
     return (
-      <tr>
-        <td>{item.name}</td>
-        <td>{item.price}</td>
-        <td>{item.name}</td>
-        <td>
+      <TableRow>
+        <TableCell>{item.name}</TableCell>
+        <TableCell>{item.price}</TableCell>
+        <TableCell>{item.name}</TableCell>
+        <TableCell>
           <button onClick={() => props.onDecrementInCart(item.id)}>-</button>
           {item.quantity}
           <button onClick={() => props.onIncrementInCart(item.id)}>+</button>
           <button onClick={() => props.onRemoveFromCart(item.id)}>x</button>
-        </td>
-        <td>{total}</td>
-      </tr>
+        </TableCell>
+        <TableCell>{total}</TableCell>
+      </TableRow>
     );
   });
-
-  console.log(props);
 
   return (
     <>
       <h2>Cart</h2>
-      <table>
-        <tbody>
-          <tr>
-            <td>Title</td>
-            <td>Price</td>
-            <td>Count</td>
-            <td>Actions</td>
-            <td>Total</td>
-          </tr>
-          {productRows}
-        </tbody>
-      </table>
+      <TableContainer component={Paper}>
+        <Table size="medium" aria-label="table">
+          <TableHead>
+            <TableRow>
+              <TableCell>Title</TableCell>
+              <TableCell>Price</TableCell>
+              <TableCell>Count</TableCell>
+              <TableCell>Actions</TableCell>
+              <TableCell>Total</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>{productRows}</TableBody>
+        </Table>
+      </TableContainer>
     </>
   );
 };

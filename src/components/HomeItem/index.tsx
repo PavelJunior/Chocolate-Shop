@@ -18,11 +18,11 @@ const HomeItem: React.FC<HomeItemProps> = ({
 }) => {
   return (
     <Card className="home-item">
-      <CardHeader title={name} subheader={price} />
-      <CardContent>
+      <CardMedia image={imageUrl} className="home-item-media" />
+      <CardHeader title={name} subheader={price} className="home-item-header" />
+      <CardContent className="home-item-content">
         <p>{description}</p>
       </CardContent>
-      <CardMedia image={imageUrl} className="home-item-media" />
     </Card>
   );
 };

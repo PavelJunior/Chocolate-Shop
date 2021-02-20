@@ -22,9 +22,9 @@ function App() {
   return (
     <Router>
       <Header />
-      <Switch>
-        <Container>{routeComponent}</Container>
-      </Switch>
+      <Container>
+        <Switch>{routeComponent}</Switch>
+      </Container>
     </Router>
   );
 }

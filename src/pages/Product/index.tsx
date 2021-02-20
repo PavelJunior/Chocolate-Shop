@@ -10,6 +10,8 @@ import {AppActions} from '../../store/types/actions';
 import {addToCart} from '../../store/actions/shop';
 import {RouteComponentProps} from './../../routes/types';
 
+import './styles.css';
+
 interface ProductPageProps extends RouteComponentProps {}
 
 interface LinkStateProps {
@@ -38,23 +40,25 @@ const Product: React.FC<Props> = (props) => {
   return props.product === undefined ? (
     <Error404 />
   ) : (
-    <div>
-      <h3>{props.product.name}</h3>
-      <h6>{props.product.price}</h6>
-      <p>{props.product.description}</p>
-      <img src={props.product.imageUrl} />
+    <div className="product">
+      <img src={props.product.imageUrl} className="product-image" />
+      <div className="product-content">
+        <h3>{props.product.name}</h3>
+        <h6>{props.product.price}</h6>
+        <p>{props.product.description}</p>
 
-      <br />
-      <button onClick={decreaseQuantity}>-</button>
-      <p>{quantity}</p>
-      <button onClick={increaseQuantity}>+</button>
+        <br />
+        <button onClick={decreaseQuantity}>-</button>
+        <p>{quantity}</p>
+        <button onClick={increaseQuantity}>+</button>
 
-      <button
-        onClick={() =>
-          props.onAddToCart(parseInt(props.match.params.id), quantity)
-        }>
-        Add To Cart
-      </button>
+        <button
+          onClick={() =>
+            props.onAddToCart(parseInt(props.match.params.id), quantity)
+          }>
+          Add To Cart
+        </button>
+      </div>
     </div>
   );
 };

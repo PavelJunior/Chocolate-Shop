@@ -9,6 +9,8 @@ import {RouteComponentProps} from '../../routes/types';
 import {ShopStateProduct} from '../../store/types/shop';
 import {AppState} from '../../store/configureStore';
 
+import './styles.css';
+
 interface HomePageProps extends RouteComponentProps {}
 
 interface LinkStateProps {
@@ -21,7 +23,7 @@ const Home: React.FC<Props> = (props) => {
   const items = props.products.map((item) => {
     return (
       <Grid item xs={4} key={item.id}>
-        <Link to={`product/${item.id}`}>
+        <Link to={`product/${item.id}`} className="home-item-link">
           <HomeItem
             description={item.description}
             name={item.name}
@@ -39,7 +41,7 @@ const Home: React.FC<Props> = (props) => {
       direction="row"
       justify="flex-start"
       alignItems="center"
-      spacing={3}>
+      spacing={4}>
       {items}
     </Grid>
   );
