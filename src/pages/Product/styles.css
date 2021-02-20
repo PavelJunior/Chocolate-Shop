@@ -4,11 +4,28 @@
     justify-content: center;
 }
 
-.product-image{
+.product-images{
     padding-right: 30px;
-    width: 40%;
+    width: 160%;
 }
 
-.product-content{
-    flex-shrink: 10;
+.product-images img{
+    width: 100%;
+}
+
+.product-content p{
+    line-height: 2;
+}
+
+.product-content h4{
+    font-weight: 600;
+}
+
+.product-content h3{
+    color: dimgrey;
+}
+
+.product-select{
+    width: 40%;
+    margin-right: 5%;
 }

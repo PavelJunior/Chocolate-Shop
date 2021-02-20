@@ -58,21 +58,25 @@ const Cart: React.FC<Props> = (props) => {
 
   return (
     <>
-      <h2>Cart</h2>
-      <TableContainer component={Paper}>
-        <Table size="medium" aria-label="table">
-          <TableHead>
-            <TableRow>
-              <TableCell>Title</TableCell>
-              <TableCell>Price</TableCell>
-              <TableCell>Count</TableCell>
-              <TableCell>Actions</TableCell>
-              <TableCell>Total</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>{productRows}</TableBody>
-        </Table>
-      </TableContainer>
+      <h1>Cart</h1>
+      {props.cart.length > 0 ? (
+        <TableContainer component={Paper}>
+          <Table size="medium" aria-label="table">
+            <TableHead>
+              <TableRow>
+                <TableCell>Title</TableCell>
+                <TableCell>Price</TableCell>
+                <TableCell>Count</TableCell>
+                <TableCell>Actions</TableCell>
+                <TableCell>Total</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>{productRows}</TableBody>
+          </Table>
+        </TableContainer>
+      ) : (
+        <p>No items in cart</p>
+      )}
     </>
   );
 };

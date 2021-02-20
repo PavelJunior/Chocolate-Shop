@@ -9,7 +9,7 @@ export type ShopStateProduct = {
   name: string;
   description: string;
   maximumQuantity: number;
-  imageUrl: string;
+  images: string[];
 };
 
 export type ShopStateCartItem = {
@@ -18,6 +18,6 @@ export type ShopStateCartItem = {
   name: string;
   description: string;
   maximumQuantity: number;
-  imageUrl: string;
+  images: string[];
   quantity: number;
 };

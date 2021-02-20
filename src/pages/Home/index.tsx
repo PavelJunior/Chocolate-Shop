@@ -27,7 +27,7 @@ const Home: React.FC<Props> = (props) => {
           <HomeItem
             description={item.description}
             name={item.name}
-            imageUrl={item.imageUrl}
+            images={item.images}
             price={item.price}
           />
         </Link>
@@ -36,14 +36,17 @@ const Home: React.FC<Props> = (props) => {
   });
 
   return (
-    <Grid
-      container
-      direction="row"
-      justify="flex-start"
-      alignItems="center"
-      spacing={4}>
-      {items}
-    </Grid>
+    <>
+      <h1>Our Products</h1>
+      <Grid
+        container
+        direction="row"
+        justify="flex-start"
+        alignItems="center"
+        spacing={4}>
+        {items}
+      </Grid>
+    </>
   );
 };
 

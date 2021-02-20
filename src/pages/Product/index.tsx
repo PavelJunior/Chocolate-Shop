@@ -10,6 +10,8 @@ import {AppActions} from '../../store/types/actions';
 import {addToCart} from '../../store/actions/shop';
 import {RouteComponentProps} from './../../routes/types';
 
+import {Select, InputLabel, MenuItem, Button} from '@material-ui/core';
+
 import './styles.css';
 
 interface ProductPageProps extends RouteComponentProps {}
@@ -27,37 +29,48 @@ type Props = ProductPageProps & LinkDispatchProps & LinkStateProps;
 const Product: React.FC<Props> = (props) => {
   const [quantity, setQuantity] = useState(1);
 
-  const increaseQuantity = () => {
-    const newQty = Math.min(quantity + 1, props?.product?.maximumQuantity ?? 1);
-    setQuantity(newQty);
+  const onSelectChange = (e: any) => {
+    setQuantity(e.target.value);
   };
 
-  const decreaseQuantity = () => {
-    const newQty = Math.max(quantity - 1, 1);
-    setQuantity(newQty);
+  const images = props.product?.images.map((i) => {
+    return <img src={`/images/${i}`} className="product-image" />;
+  });
+
+  const selectQuantityOptions = (maxQty: number) => {
+    let option = [];
+    for (let i = 1; i <= maxQty; i++) {
+      option.push(<MenuItem value={i}>{i}</MenuItem>);
+    }
+
+    return option;
   };
 
   return props.product === undefined ? (
     <Error404 />
   ) : (
     <div className="product">
-      <img src={props.product.imageUrl} className="product-image" />
+      <div className="product-images">{images}</div>
       <div className="product-content">
-        <h3>{props.product.name}</h3>
-        <h6>{props.product.price}</h6>
-        <p>{props.product.description}</p>
+        <h2>{props.product.name}</h2>
+        <h3>${props.product.price}</h3>
+        <div dangerouslySetInnerHTML={{__html: props.product.description}} />
 
-        <br />
-        <button onClick={decreaseQuantity}>-</button>
-        <p>{quantity}</p>
-        <button onClick={increaseQuantity}>+</button>
-
-        <button
+        <InputLabel id="label">Quantity</InputLabel>
+        <Select
+          id="label"
+          value={quantity}
+          onChange={(e) => onSelectChange(e)}
+          className="product-select">
+          {selectQuantityOptions(props.product.maximumQuantity)}
+        </Select>
+        <Button
+          variant="contained"
           onClick={() =>
             props.onAddToCart(parseInt(props.match.params.id), quantity)
           }>
           Add To Cart
-        </button>
+        </Button>
       </div>
     </div>
   );
