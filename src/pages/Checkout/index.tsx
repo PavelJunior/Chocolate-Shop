@@ -8,7 +8,7 @@ import {AppActions} from '../../store/types/actions';
 import {addToCart} from '../../store/actions/shop';
 import {RouteComponentProps} from './../../routes/types';
 
-import {Select, InputLabel, MenuItem, Button} from '@material-ui/core';
+import CheckoutForm from '../../components/CheckoutForm';
 
 import './styles.css';
 
@@ -28,6 +28,7 @@ const Checkout: React.FC<Props> = (props) => {
   return (
     <>
       <h1>Checkout</h1>
+      <CheckoutForm />
     </>
   );
 };
