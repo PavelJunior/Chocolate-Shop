@@ -2,6 +2,7 @@ import Home from '../pages/Home';
 import Product from '../pages/Product';
 import Error404 from '../pages/Error404';
 import Cart from '../pages/Cart';
+import Checkout from '../pages/Checkout';
 
 import {RouteType} from './types';
 
@@ -16,6 +17,12 @@ const routes: RouteType[] = [
     name: 'cart',
     url: '/cart',
     component: Cart,
+    exact: true,
+  },
+  {
+    name: 'checkout',
+    url: '/checkout',
+    component: Checkout,
     exact: true,
   },
   {

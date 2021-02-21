@@ -8,6 +8,7 @@ import {
   TableHead,
   TableRow,
   Paper,
+  Button,
 } from '@material-ui/core';
 
 import {connect} from 'react-redux';
@@ -21,6 +22,7 @@ import {
   removeFromCart,
 } from '../../store/actions/shop';
 import {RouteComponentProps} from './../../routes/types';
+import {Link} from 'react-router-dom';
 
 interface CartPageProps extends RouteComponentProps {}
 
@@ -60,20 +62,25 @@ const Cart: React.FC<Props> = (props) => {
     <>
       <h1>Cart</h1>
       {props.cart.length > 0 ? (
-        <TableContainer component={Paper}>
-          <Table size="medium" aria-label="table">
-            <TableHead>
-              <TableRow>
-                <TableCell>Title</TableCell>
-                <TableCell>Price</TableCell>
-                <TableCell>Count</TableCell>
-                <TableCell>Actions</TableCell>
-                <TableCell>Total</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>{productRows}</TableBody>
-          </Table>
-        </TableContainer>
+        <>
+          <TableContainer component={Paper}>
+            <Table size="medium" aria-label="table">
+              <TableHead>
+                <TableRow>
+                  <TableCell>Title</TableCell>
+                  <TableCell>Price</TableCell>
+                  <TableCell>Count</TableCell>
+                  <TableCell>Actions</TableCell>
+                  <TableCell>Total</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>{productRows}</TableBody>
+            </Table>
+          </TableContainer>
+          <Link to="/checkout">
+            <Button variant="contained">Checkout</Button>
+          </Link>
+        </>
       ) : (
         <p>No items in cart</p>
       )}

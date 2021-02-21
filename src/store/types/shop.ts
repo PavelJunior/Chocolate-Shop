@@ -1,3 +1,5 @@
+import {RouteComponentProps} from '../../routes/types';
+
 export interface ShopState {
   products: ShopStateProduct[];
   cart: ShopStateCartItem[];
