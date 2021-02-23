@@ -2,8 +2,6 @@ import React from 'react';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
 
 export default function AddressForm() {
   return (
@@ -62,7 +60,12 @@ export default function AddressForm() {
           />
         </Grid>
         <Grid item xs={12} sm={6}>
-          <TextField id="state" name="state" label="State/Province/Region" fullWidth />
+          <TextField
+            id="state"
+            name="state"
+            label="State/Province/Region"
+            fullWidth
+          />
         </Grid>
         <Grid item xs={12} sm={6}>
           <TextField
@@ -82,12 +85,6 @@ export default function AddressForm() {
             label="Country"
             fullWidth
             autoComplete="shipping country"
-          />
-        </Grid>
-        <Grid item xs={12}>
-          <FormControlLabel
-            control={<Checkbox color="secondary" name="saveAddress" value="yes" />}
-            label="Use this address for payment details"
           />
         </Grid>
       </Grid>

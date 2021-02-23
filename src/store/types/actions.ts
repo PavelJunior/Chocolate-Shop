@@ -24,10 +24,20 @@ interface DecrementProductAction {
   id: number;
 }
 
+export const CHECKOUT_CHANGE_FIELD_VALUE = 'CHECKOUT_CHANGE_FIELD_VALUE';
+
+interface ChangeFieldValue {
+  type: typeof CHECKOUT_CHANGE_FIELD_VALUE;
+  field: string;
+  value: string;
+}
+
 export type ShopActionTypes =
   | AddProductToCartAction
   | RemoveProductFromCartAction
   | IncrementProductAction
   | DecrementProductAction;
 
-export type AppActions = ShopActionTypes;
+export type CheckoutActionsTypes = ChangeFieldValue;
+
+export type AppActions = ShopActionTypes | CheckoutActionsTypes;

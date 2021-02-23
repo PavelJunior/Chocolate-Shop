@@ -1,25 +1,26 @@
-import React, {ChangeEvent, useState} from 'react';
-
-import {connect} from 'react-redux';
-import {ShopStateProduct} from '../../store/types/shop';
-import {AppState} from '../../store/configureStore';
-import {Dispatch} from 'redux';
-import {AppActions} from '../../store/types/actions';
-import {addToCart} from '../../store/actions/shop';
-import {RouteComponentProps} from './../../routes/types';
-
+import React from 'react';
 import CheckoutForm from '../../components/CheckoutForm';
 
 import './styles.css';
+import {RouteComponentProps} from '../../routes/types';
+import {
+  CheckoutChangeValue,
+  CheckoutFormState,
+} from '../../store/types/checkout';
+import {connect} from 'react-redux';
+import {AppState} from '../../store/configureStore';
+import {Dispatch} from 'redux';
+import {AppActions} from '../../store/types/actions';
+import {fieldValueChange} from '../../store/actions/checkout';
 
 interface ProductPageProps extends RouteComponentProps {}
 
 interface LinkStateProps {
-  product: ShopStateProduct | undefined;
+  form: CheckoutFormState;
 }
 
 interface LinkDispatchProps {
-  onAddToCart: (id: number, quantity: number) => void;
+  onCheckoutFieldChange: CheckoutChangeValue;
 }
 
 type Props = ProductPageProps & LinkDispatchProps & LinkStateProps;
@@ -28,28 +29,25 @@ const Checkout: React.FC<Props> = (props) => {
   return (
     <>
       <h1>Checkout</h1>
-      <CheckoutForm />
+      <CheckoutForm
+        form={props.form}
+        changeFieldValue={props.onCheckoutFieldChange}
+      />
     </>
   );
 };
 
-let mapStateToProps = (
-  state: AppState,
-  ownProps: RouteComponentProps,
-): LinkStateProps => {
-  const product = state.shop.products.find(
-    (product) => product.id === parseInt(ownProps.match.params.id),
-  );
-
+let mapStateToProps = (state: AppState): LinkStateProps => {
   return {
-    product,
+    form: state.checkout,
   };
 };
 
 let mapDispatchToProps = (
   dispatch: Dispatch<AppActions>,
 ): LinkDispatchProps => ({
-  onAddToCart: (id, quantity) => dispatch(addToCart(id, quantity)),
+  onCheckoutFieldChange: (field, value) =>
+    dispatch(fieldValueChange(field, value)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Checkout);
