@@ -11,60 +11,63 @@ import AddressForm from './AddressForm';
 import PaymentForm from './PaymentForm';
 import Review from './Review';
 import {
-  CheckoutFormState,
-  ChangeFromValues,
+  CheckoutForm,
+  ChangeFormValues,
   CheckoutFormProps,
+  ChangeCheckoutStep,
 } from '../../store/types/checkout';
 
 const steps = ['Shipping address', 'Payment details', 'Review your order'];
 
 function getStepContent(
   step: number,
-  form: CheckoutFormState,
-  changeFromValues: ChangeFromValues,
+  form: CheckoutForm,
+  changeFormValues: ChangeFormValues,
+  changeStepValue: ChangeCheckoutStep,
 ) {
   switch (step) {
     case 0:
       return (
-        <AddressForm form={form} changeCheckoutFormValues={changeFromValues} />
+        <AddressForm
+          form={form}
+          step={step}
+          changeFormValues={changeFormValues}
+          changeStepValue={changeStepValue}
+        />
       );
     case 1:
       return (
-        <PaymentForm form={form} changeCheckoutFormValues={changeFromValues} />
+        <PaymentForm
+          form={form}
+          step={step}
+          changeFormValues={changeFormValues}
+          changeStepValue={changeStepValue}
+        />
       );
     case 2:
-      return <Review form={form} changeCheckoutFormValues={changeFromValues} />;
+      return <Review />;
     default:
       throw new Error('Unknown step');
   }
 }
 
-const CheckoutForm: React.FC<CheckoutFormProps> = (props) => {
+const CheckoutFormComponent: React.FC<CheckoutFormProps> = (props) => {
   const classes = useStyles();
-  const [activeStep, setActiveStep] = React.useState(0);
-
-  const handleNext = () => {
-    setActiveStep(activeStep + 1);
-  };
-
-  const handleBack = () => {
-    setActiveStep(activeStep - 1);
-  };
 
   return (
     <>
       <CssBaseline />
       <main className={classes.layout}>
         <Paper className={classes.paper}>
-          <Stepper activeStep={activeStep} className={classes.stepper}>
+          <Stepper activeStep={props.step} className={classes.stepper}>
             {steps.map((label) => (
               <Step key={label}>
                 <StepLabel>{label}</StepLabel>
               </Step>
             ))}
           </Stepper>
-          <React.Fragment>
-            {activeStep === steps.length ? (
+          <>
+            {props.step === steps.length ? (
               <React.Fragment>
                 <Typography variant="h5" gutterBottom>
                   Thank you for your order.
@@ -76,29 +79,30 @@ const CheckoutForm: React.FC<CheckoutFormProps> = (props) => {
                 </Typography>
               </React.Fragment>
             ) : (
-              <React.Fragment>
+              <>
                 {getStepContent(
-                  activeStep,
+                  props.step,
                   props.form,
-                  props.changeCheckoutFormValues,
+                  props.changeFormValues,
+                  props.changeStepValue,
                 )}
-                <div className={classes.buttons}>
-                  {activeStep !== 0 && (
-                    <Button onClick={handleBack} className={classes.button}>
-                      Back
-                    </Button>
-                  )}
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    onClick={handleNext}
-                    className={classes.button}>
-                    {activeStep === steps.length - 1 ? 'Place order' : 'Next'}
-                  </Button>
-                </div>
-              </React.Fragment>
+                {/*<div className={classes.buttons}>*/}
+                {/*  {props.step !== 0 && (*/}
+                {/*    <Button onClick={handleBack} className={classes.button}>*/}
+                {/*      Back*/}
+                {/*    </Button>*/}
+                {/*  )}*/}
+                {/*  <Button*/}
+                {/*    variant="contained"*/}
+                {/*    color="primary"*/}
+                {/*    onClick={handleNext}*/}
+                {/*    className={classes.button}>*/}
+                {/*    {activeStep === steps.length - 1 ? 'Place order' : 'Next'}*/}
+                {/*  </Button>*/}
+                {/*</div>*/}
+              </>
             )}
-          </React.Fragment>
+          </>
         </Paper>
       </main>
     </>
@@ -142,4 +146,4 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default CheckoutForm;
+export default CheckoutFormComponent;

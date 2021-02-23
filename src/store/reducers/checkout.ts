@@ -1,20 +1,25 @@
-import {CheckoutFormState} from '../types/checkout';
+import {CheckoutState} from '../types/checkout';
 
 import {
-  CHECKOUT_CHANGE_FIELD_VALUE,
+  CHECKOUT_CHANGE_FORM_VALUES,
+  CHECKOUT_CHANGE_STEP_VALUE,
   CheckoutActionsTypes,
 } from '../types/actions';
 
 const reducer = (
-  state: CheckoutFormState = initialState,
+  state: CheckoutState = initialState,
   action: CheckoutActionsTypes,
-): CheckoutFormState => {
+): CheckoutState => {
   console.log(action.type);
 
   switch (action.type) {
-    case CHECKOUT_CHANGE_FIELD_VALUE: {
-      let updatedState = {...state};
-      return updatedState;
+    case CHECKOUT_CHANGE_FORM_VALUES: {
+      let updatedState = {...state.form};
+      return {...state, form: updatedState};
+    }
+
+    case CHECKOUT_CHANGE_STEP_VALUE: {
+      return {...state, step: action.step};
     }
 
     default:
@@ -22,19 +27,22 @@ const reducer = (
   }
 };
 
-let initialState: CheckoutFormState = {
-  firstName: '',
-  lastName: '',
-  addressLine1: '',
-  addressLine2: '',
-  city: '',
-  state: '',
-  zip: '',
-  country: '',
-  nameOnCard: '',
-  cardNumber: '',
-  cardExpiration: '',
-  cardCvv: '',
+let initialState: CheckoutState = {
+  step: 0,
+  form: {
+    firstName: '',
+    lastName: '',
+    addressLine1: '',
+    addressLine2: '',
+    city: '',
+    state: '',
+    zip: '',
+    country: '',
+    nameOnCard: '',
+    cardNumber: '',
+    cardExpiration: '',
+    cardCvv: '',
+  },
 };
 
 export default reducer;

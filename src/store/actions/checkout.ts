@@ -1,9 +1,17 @@
 import {AppActions} from '../types/actions';
 
-import {CHECKOUT_CHANGE_FIELD_VALUE} from './../types/actions';
-import {CheckoutFormState} from './../types/checkout';
+import {
+  CHECKOUT_CHANGE_FORM_VALUES,
+  CHECKOUT_CHANGE_STEP_VALUE,
+} from './../types/actions';
+import {CheckoutForm} from './../types/checkout';
 
-export const fieldValueChange = (form: CheckoutFormState): AppActions => ({
-  type: CHECKOUT_CHANGE_FIELD_VALUE,
+export const changeFormValues = (form: CheckoutForm): AppActions => ({
+  type: CHECKOUT_CHANGE_FORM_VALUES,
   form: form,
+});
+
+export const changeStepValue = (step: number): AppActions => ({
+  type: CHECKOUT_CHANGE_STEP_VALUE,
+  step: step,
 });

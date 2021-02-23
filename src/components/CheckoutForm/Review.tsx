@@ -5,11 +5,7 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import Grid from '@material-ui/core/Grid';
-import {
-  CheckoutFormState,
-  ChangeFromValues,
-  CheckoutFormProps,
-} from '../../store/types/checkout';
+import {CheckoutFormProps} from '../../store/types/checkout';
 
 const products = [
   {name: 'Product 1', desc: 'A nice thing', price: '$9.99'},
@@ -44,7 +40,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Review: React.FC<CheckoutFormProps> = (props) => {
+const Review: React.FC = () => {
   const classes = useStyles();
 
   return (

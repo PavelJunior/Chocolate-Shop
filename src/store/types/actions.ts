@@ -1,4 +1,4 @@
-import {CheckoutFormState} from './../types/checkout';
+import {CheckoutForm} from './../types/checkout';
 
 export const ADD_PRODUCT_TO_CART = 'ADD_PRODUCT_TO_CART';
 export const REMOVE_PRODUCT_FROM_CART = 'REMOVE_PRODUCT_FROM_CART';
@@ -26,11 +26,17 @@ interface DecrementProductAction {
   id: number;
 }
 
-export const CHECKOUT_CHANGE_FIELD_VALUE = 'CHECKOUT_CHANGE_FIELD_VALUE';
+export const CHECKOUT_CHANGE_FORM_VALUES = 'CHECKOUT_CHANGE_FORM_VALUES';
+export const CHECKOUT_CHANGE_STEP_VALUE = 'CHECKOUT_CHANGE_STEP_VALUE';
 
-interface ChangeFieldValue {
-  type: typeof CHECKOUT_CHANGE_FIELD_VALUE;
-  form: CheckoutFormState;
+interface ChangeFormValues {
+  type: typeof CHECKOUT_CHANGE_FORM_VALUES;
+  form: CheckoutForm;
+}
+
+interface ChangeStepValue {
+  type: typeof CHECKOUT_CHANGE_STEP_VALUE;
+  step: number;
 }
 
 export type ShopActionTypes =
@@ -39,6 +45,6 @@ export type ShopActionTypes =
   | IncrementProductAction
   | DecrementProductAction;
 
-export type CheckoutActionsTypes = ChangeFieldValue;
+export type CheckoutActionsTypes = ChangeFormValues | ChangeStepValue;
 
 export type AppActions = ShopActionTypes | CheckoutActionsTypes;

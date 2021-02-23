@@ -1,4 +1,12 @@
-export interface CheckoutFormState {
+import AddressForm from '../../components/CheckoutForm/AddressForm';
+import React from 'react';
+
+export interface CheckoutState {
+  step: number;
+  form: CheckoutForm;
+}
+
+export type CheckoutForm = {
   firstName: string;
   lastName: string;
   addressLine1: string;
@@ -11,11 +19,14 @@ export interface CheckoutFormState {
   cardNumber: string;
   cardExpiration: string;
   cardCvv: string;
-}
+};
 
 export interface CheckoutFormProps {
-  form: CheckoutFormState;
-  changeCheckoutFormValues: ChangeFromValues;
+  form: CheckoutForm;
+  step: number;
+  changeFormValues: ChangeFormValues;
+  changeStepValue: ChangeCheckoutStep;
 }
 
-export type ChangeFromValues = (form: CheckoutFormState) => void;
+export type ChangeFormValues = (form: CheckoutForm) => void;
+export type ChangeCheckoutStep = (step: number) => void;
