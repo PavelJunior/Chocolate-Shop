@@ -4,11 +4,7 @@ import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
-import {
-  CheckoutFormState,
-  CheckoutChangeValue,
-  CheckoutFormProps,
-} from '../../store/types/checkout';
+import {CheckoutFormProps} from '../../store/types/checkout';
 
 const PaymentForm: React.FC<CheckoutFormProps> = (props) => {
   return (
@@ -24,6 +20,7 @@ const PaymentForm: React.FC<CheckoutFormProps> = (props) => {
             label="Name on card"
             fullWidth
             autoComplete="cc-name"
+            value={props.form.nameOnCard}
           />
         </Grid>
         <Grid item xs={12} md={6}>
@@ -33,6 +30,7 @@ const PaymentForm: React.FC<CheckoutFormProps> = (props) => {
             label="Card number"
             fullWidth
             autoComplete="cc-number"
+            value={props.form.cardNumber}
           />
         </Grid>
         <Grid item xs={12} md={6}>
@@ -42,6 +40,7 @@ const PaymentForm: React.FC<CheckoutFormProps> = (props) => {
             label="Expiry date"
             fullWidth
             autoComplete="cc-exp"
+            value={props.form.cardExpiration}
           />
         </Grid>
         <Grid item xs={12} md={6}>
@@ -52,6 +51,7 @@ const PaymentForm: React.FC<CheckoutFormProps> = (props) => {
             helperText="Last three digits on signature strip"
             fullWidth
             autoComplete="cc-csc"
+            value={props.form.cardCvv}
           />
         </Grid>
         <Grid item xs={12}>

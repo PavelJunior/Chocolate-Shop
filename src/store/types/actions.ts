@@ -1,3 +1,5 @@
+import {CheckoutFormState} from './../types/checkout';
+
 export const ADD_PRODUCT_TO_CART = 'ADD_PRODUCT_TO_CART';
 export const REMOVE_PRODUCT_FROM_CART = 'REMOVE_PRODUCT_FROM_CART';
 export const INCREMENT_PRODUCT_IN_CART = 'INCREMENT_PRODUCT_IN_CART';
@@ -28,8 +30,7 @@ export const CHECKOUT_CHANGE_FIELD_VALUE = 'CHECKOUT_CHANGE_FIELD_VALUE';
 
 interface ChangeFieldValue {
   type: typeof CHECKOUT_CHANGE_FIELD_VALUE;
-  field: string;
-  value: string;
+  form: CheckoutFormState;
 }
 
 export type ShopActionTypes =

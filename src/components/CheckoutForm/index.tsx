@@ -12,7 +12,7 @@ import PaymentForm from './PaymentForm';
 import Review from './Review';
 import {
   CheckoutFormState,
-  CheckoutChangeValue,
+  ChangeFromValues,
   CheckoutFormProps,
 } from '../../store/types/checkout';
 
@@ -21,15 +21,19 @@ const steps = ['Shipping address', 'Payment details', 'Review your order'];
 function getStepContent(
   step: number,
   form: CheckoutFormState,
-  changeFieldValue: CheckoutChangeValue,
+  changeFromValues: ChangeFromValues,
 ) {
   switch (step) {
     case 0:
-      return <AddressForm form={form} changeFieldValue={changeFieldValue} />;
+      return (
+        <AddressForm form={form} changeCheckoutFormValues={changeFromValues} />
+      );
     case 1:
-      return <PaymentForm form={form} changeFieldValue={changeFieldValue} />;
+      return (
+        <PaymentForm form={form} changeCheckoutFormValues={changeFromValues} />
+      );
     case 2:
-      return <Review form={form} changeFieldValue={changeFieldValue} />;
+      return <Review form={form} changeCheckoutFormValues={changeFromValues} />;
     default:
       throw new Error('Unknown step');
   }
@@ -48,7 +52,7 @@ const CheckoutForm: React.FC<CheckoutFormProps> = (props) => {
   };
 
   return (
-    <React.Fragment>
+    <>
       <CssBaseline />
       <main className={classes.layout}>
         <Paper className={classes.paper}>
@@ -73,7 +77,11 @@ const CheckoutForm: React.FC<CheckoutFormProps> = (props) => {
               </React.Fragment>
             ) : (
               <React.Fragment>
-                {getStepContent(activeStep, props.form, props.changeFieldValue)}
+                {getStepContent(
+                  activeStep,
+                  props.form,
+                  props.changeCheckoutFormValues,
+                )}
                 <div className={classes.buttons}>
                   {activeStep !== 0 && (
                     <Button onClick={handleBack} className={classes.button}>
@@ -93,7 +101,7 @@ const CheckoutForm: React.FC<CheckoutFormProps> = (props) => {
           </React.Fragment>
         </Paper>
       </main>
-    </React.Fragment>
+    </>
   );
 };
 

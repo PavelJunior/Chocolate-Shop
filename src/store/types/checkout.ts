@@ -15,7 +15,7 @@ export interface CheckoutFormState {
 
 export interface CheckoutFormProps {
   form: CheckoutFormState;
-  changeFieldValue: CheckoutChangeValue;
+  changeCheckoutFormValues: ChangeFromValues;
 }
 
-export type CheckoutChangeValue = (field: string, value: string) => void;
+export type ChangeFromValues = (form: CheckoutFormState) => void;

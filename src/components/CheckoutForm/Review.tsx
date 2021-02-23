@@ -7,7 +7,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import Grid from '@material-ui/core/Grid';
 import {
   CheckoutFormState,
-  CheckoutChangeValue,
+  ChangeFromValues,
   CheckoutFormProps,
 } from '../../store/types/checkout';
 

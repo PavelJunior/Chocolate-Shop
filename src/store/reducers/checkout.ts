@@ -14,7 +14,6 @@ const reducer = (
   switch (action.type) {
     case CHECKOUT_CHANGE_FIELD_VALUE: {
       let updatedState = {...state};
-      updatedState[action.field as keyof CheckoutFormState] = action.value;
       return updatedState;
     }
 

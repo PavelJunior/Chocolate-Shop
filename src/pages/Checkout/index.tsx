@@ -3,10 +3,7 @@ import CheckoutForm from '../../components/CheckoutForm';
 
 import './styles.css';
 import {RouteComponentProps} from '../../routes/types';
-import {
-  CheckoutChangeValue,
-  CheckoutFormState,
-} from '../../store/types/checkout';
+import {ChangeFromValues, CheckoutFormState} from '../../store/types/checkout';
 import {connect} from 'react-redux';
 import {AppState} from '../../store/configureStore';
 import {Dispatch} from 'redux';
@@ -20,7 +17,7 @@ interface LinkStateProps {
 }
 
 interface LinkDispatchProps {
-  onCheckoutFieldChange: CheckoutChangeValue;
+  onCheckoutFormChange: ChangeFromValues;
 }
 
 type Props = ProductPageProps & LinkDispatchProps & LinkStateProps;
@@ -31,7 +28,7 @@ const Checkout: React.FC<Props> = (props) => {
       <h1>Checkout</h1>
       <CheckoutForm
         form={props.form}
-        changeFieldValue={props.onCheckoutFieldChange}
+        changeCheckoutFormValues={props.onCheckoutFormChange}
       />
     </>
   );
@@ -46,8 +43,7 @@ let mapStateToProps = (state: AppState): LinkStateProps => {
 let mapDispatchToProps = (
   dispatch: Dispatch<AppActions>,
 ): LinkDispatchProps => ({
-  onCheckoutFieldChange: (field, value) =>
-    dispatch(fieldValueChange(field, value)),
+  onCheckoutFormChange: (form) => dispatch(fieldValueChange(form)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Checkout);
