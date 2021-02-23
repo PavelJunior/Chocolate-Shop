@@ -14,7 +14,9 @@ const reducer = (
 
   switch (action.type) {
     case CHECKOUT_CHANGE_FORM_VALUES: {
-      let updatedState = {...state.form};
+      console.log('here');
+      let updatedState = {...action.form};
+      console.log(111, updatedState);
       return {...state, form: updatedState};
     }
 

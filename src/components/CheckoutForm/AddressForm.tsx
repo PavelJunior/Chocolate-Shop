@@ -9,19 +9,17 @@ import Button from '@material-ui/core/Button';
 
 const validationSchema = Yup.object().shape({
   firstName: Yup.string()
+    .min(2, 'Too Short!')
+    .required('First Name Is Required'),
+  lastName: Yup.string().min(2, 'Too Short!').required('Last Name Is Required'),
+  addressLine1: Yup.string()
     .min(5, 'Too Short!')
-    .max(10, 'Too Long!')
-    .required('Required'),
-  lastName: Yup.string()
-    .min(5, 'Too Short!')
-    .max(10, 'Too Long!')
-    .required('Required'),
-  addressLine1: Yup.string().required('Required'),
-  addressLine2: Yup.string(),
-  city: Yup.string().required('Required'),
-  state: Yup.string().required('Required'),
-  zip: Yup.string().required('Required'),
-  country: Yup.string().required('Required'),
+    .required('Address is Required'),
+  addressLine2: Yup.string().min(5, 'Too Short!'),
+  city: Yup.string().min(2, 'Too Short!').required('City Is Required'),
+  state: Yup.string().min(1, 'Too Short!').required('State Is Required'),
+  zip: Yup.string().min(2, 'Too Short!').required('ZIP Is Required'),
+  country: Yup.string().min(2, 'Too Short!').required('Country Is Required'),
 });
 
 const AddressForm: React.FC<CheckoutFormProps> = (props) => {
@@ -47,7 +45,6 @@ const AddressForm: React.FC<CheckoutFormProps> = (props) => {
             <TextField
               required
               id="firstName"
-              name="firstName"
               label="First name"
               fullWidth
               autoComplete="given-name"
@@ -64,7 +61,6 @@ const AddressForm: React.FC<CheckoutFormProps> = (props) => {
             <TextField
               required
               id="lastName"
-              name="lastName"
               label="Last name"
               fullWidth
               autoComplete="family-name"
@@ -79,10 +75,10 @@ const AddressForm: React.FC<CheckoutFormProps> = (props) => {
             <TextField
               required
               id="addressLine1"
-              name="addressLine1"
               label="Address line 1"
               fullWidth
               autoComplete="shipping address-line1"
+              value={formik.values.addressLine1}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
               error={
@@ -97,10 +93,10 @@ const AddressForm: React.FC<CheckoutFormProps> = (props) => {
           <Grid item xs={12}>
             <TextField
               id="addressLine2"
-              name="addressLine2"
               label="Address line 2"
               fullWidth
               autoComplete="shipping address-line2"
+              value={formik.values.addressLine2}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
               error={
@@ -116,10 +112,10 @@ const AddressForm: React.FC<CheckoutFormProps> = (props) => {
             <TextField
               required
               id="city"
-              name="city"
               label="City"
               fullWidth
               autoComplete="shipping address-level2"
+              value={formik.values.city}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
               error={formik.touched.city && Boolean(formik.errors.city)}
@@ -131,6 +127,7 @@ const AddressForm: React.FC<CheckoutFormProps> = (props) => {
               id="state"
               name="state"
               label="State/Province/Region"
+              value={formik.values.state}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
               error={formik.touched.state && Boolean(formik.errors.state)}
@@ -142,10 +139,10 @@ const AddressForm: React.FC<CheckoutFormProps> = (props) => {
             <TextField
               required
               id="zip"
-              name="zip"
               label="Zip / Postal code"
               fullWidth
               autoComplete="shipping postal-code"
+              value={formik.values.zip}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
               error={formik.touched.zip && Boolean(formik.errors.zip)}
@@ -156,10 +153,10 @@ const AddressForm: React.FC<CheckoutFormProps> = (props) => {
             <TextField
               required
               id="country"
-              name="country"
               label="Country"
               fullWidth
               autoComplete="shipping country"
+              value={formik.values.country}
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
               error={formik.touched.country && Boolean(formik.errors.country)}
