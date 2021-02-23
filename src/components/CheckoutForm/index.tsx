@@ -13,29 +13,29 @@ import Review from './Review';
 import {
   CheckoutFormState,
   CheckoutChangeValue,
+  CheckoutFormProps,
 } from '../../store/types/checkout';
 
 const steps = ['Shipping address', 'Payment details', 'Review your order'];
 
-function getStepContent(step: number) {
+function getStepContent(
+  step: number,
+  form: CheckoutFormState,
+  changeFieldValue: CheckoutChangeValue,
+) {
   switch (step) {
     case 0:
-      return <AddressForm />;
+      return <AddressForm form={form} changeFieldValue={changeFieldValue} />;
     case 1:
-      return <PaymentForm />;
+      return <PaymentForm form={form} changeFieldValue={changeFieldValue} />;
     case 2:
-      return <Review />;
+      return <Review form={form} changeFieldValue={changeFieldValue} />;
     default:
       throw new Error('Unknown step');
   }
 }
 
-interface ProductCheckoutFormProps {
-  form: CheckoutFormState;
-  changeFieldValue: CheckoutChangeValue;
-}
-
-const CheckoutForm: React.FC<ProductCheckoutFormProps> = (props) => {
+const CheckoutForm: React.FC<CheckoutFormProps> = (props) => {
   const classes = useStyles();
   const [activeStep, setActiveStep] = React.useState(0);
 
@@ -73,7 +73,7 @@ const CheckoutForm: React.FC<ProductCheckoutFormProps> = (props) => {
               </React.Fragment>
             ) : (
               <React.Fragment>
-                {getStepContent(activeStep)}
+                {getStepContent(activeStep, props.form, props.changeFieldValue)}
                 <div className={classes.buttons}>
                   {activeStep !== 0 && (
                     <Button onClick={handleBack} className={classes.button}>

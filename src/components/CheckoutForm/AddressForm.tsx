@@ -2,10 +2,15 @@ import React from 'react';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
+import {
+  CheckoutFormState,
+  CheckoutChangeValue,
+  CheckoutFormProps,
+} from '../../store/types/checkout';
 
-export default function AddressForm() {
+const AddressForm: React.FC<CheckoutFormProps> = (props) => {
   return (
-    <React.Fragment>
+    <>
       <Typography variant="h6" gutterBottom>
         Shipping address
       </Typography>
@@ -88,6 +93,8 @@ export default function AddressForm() {
           />
         </Grid>
       </Grid>
-    </React.Fragment>
+    </>
   );
-}
+};
+
+export default AddressForm;

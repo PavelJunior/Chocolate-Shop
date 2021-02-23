@@ -13,4 +13,9 @@ export interface CheckoutFormState {
   cardCvv: string;
 }
 
+export interface CheckoutFormProps {
+  form: CheckoutFormState;
+  changeFieldValue: CheckoutChangeValue;
+}
+
 export type CheckoutChangeValue = (field: string, value: string) => void;
