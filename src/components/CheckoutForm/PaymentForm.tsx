@@ -3,9 +3,18 @@ import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import {Button} from '@material-ui/core';
-import {CheckoutFormAddressAndPaymentProps} from '../../store/types/checkout';
+import {
+  ChangeCheckoutStep,
+  ChangeFormValues,
+  CheckoutForm,
+} from '../../store/types/checkout';
 import {useFormik} from 'formik';
 import * as Yup from 'yup';
+import {AppState} from '../../store/configureStore';
+import {Dispatch} from 'redux';
+import {AppActions} from '../../store/types/actions';
+import {changeFormValues, changeStepValue} from '../../store/actions/checkout';
+import {connect} from 'react-redux';
 
 const validationSchema = Yup.object().shape({
   nameOnCard: Yup.string().min(4, 'Too Short!').required('Required'),
@@ -23,18 +32,29 @@ const validationSchema = Yup.object().shape({
     .required('Required'),
 });
 
-const PaymentForm: React.FC<CheckoutFormAddressAndPaymentProps> = (props) => {
+interface LinkStateProps {
+  form: CheckoutForm;
+}
+
+interface LinkDispatchProps {
+  onCheckoutFormChange: ChangeFormValues;
+  onCheckoutStepChange: ChangeCheckoutStep;
+}
+
+type Props = LinkDispatchProps & LinkStateProps;
+
+const PaymentForm: React.FC<Props> = (props) => {
   const formik = useFormik({
     initialValues: props.form,
     validationSchema: validationSchema,
     onSubmit: (values) => {
-      props.changeFormValues(values);
-      props.changeStepValue(2);
+      props.onCheckoutFormChange(values);
+      props.onCheckoutStepChange(2);
     },
   });
 
   return (
-    <React.Fragment>
+    <>
       <Typography variant="h6" gutterBottom>
         Payment method
       </Typography>
@@ -107,14 +127,27 @@ const PaymentForm: React.FC<CheckoutFormAddressAndPaymentProps> = (props) => {
           </Grid>
         </Grid>
         <div>
-          <Button onClick={() => props.changeStepValue(0)}>Back</Button>
+          <Button onClick={() => props.onCheckoutStepChange(0)}>Back</Button>
           <Button variant="contained" color="primary" type="submit">
             Place order
           </Button>
         </div>
       </form>
-    </React.Fragment>
+    </>
   );
 };
 
-export default PaymentForm;
+let mapStateToProps = (state: AppState): LinkStateProps => {
+  return {
+    form: state.checkout.form,
+  };
+};
+
+let mapDispatchToProps = (
+  dispatch: Dispatch<AppActions>,
+): LinkDispatchProps => ({
+  onCheckoutFormChange: (form) => dispatch(changeFormValues(form)),
+  onCheckoutStepChange: (step) => dispatch(changeStepValue(step)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(PaymentForm);

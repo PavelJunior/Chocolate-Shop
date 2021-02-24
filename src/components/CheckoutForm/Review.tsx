@@ -5,29 +5,26 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import Grid from '@material-ui/core/Grid';
-import {CheckoutFormReviewProps} from '../../store/types/checkout';
+import {ChangeCheckoutStep, CheckoutForm} from '../../store/types/checkout';
+import {AppState} from '../../store/configureStore';
+import {Dispatch} from 'redux';
+import {AppActions} from '../../store/types/actions';
+import {changeStepValue} from '../../store/actions/checkout';
+import {connect} from 'react-redux';
+import {ShopStateCartItem} from '../../store/types/shop';
 
-const products = [
-  {name: 'Product 1', desc: 'A nice thing', price: '$9.99'},
-  {name: 'Product 2', desc: 'Another thing', price: '$3.45'},
-  {name: 'Product 3', desc: 'Something else', price: '$6.51'},
-  {name: 'Product 4', desc: 'Best thing of all', price: '$14.11'},
-  {name: 'Shipping', desc: '', price: 'Free'},
-];
+interface LinkStateProps {
+  form: CheckoutForm;
+  cart: ShopStateCartItem[];
+}
 
-const useStyles = makeStyles((theme) => ({
-  listItem: {
-    padding: theme.spacing(1, 0),
-  },
-  total: {
-    fontWeight: 700,
-  },
-  title: {
-    marginTop: theme.spacing(2),
-  },
-}));
+interface LinkDispatchProps {
+  onCheckoutStepChange: ChangeCheckoutStep;
+}
 
-const Review: React.FC<CheckoutFormReviewProps> = ({form, changeStepValue}) => {
+type Props = LinkDispatchProps & LinkStateProps;
+
+const Review: React.FC<Props> = ({form, cart, onCheckoutStepChange}) => {
   const classes = useStyles();
 
   const fullAddressString = () => {
@@ -64,27 +61,32 @@ const Review: React.FC<CheckoutFormReviewProps> = ({form, changeStepValue}) => {
     ));
   };
 
+  const calculateTotal = () => {
+    //todo
+    return '34.65$';
+  };
+
   const productsInfo = () => {
     return (
       <>
-        {/*{.map((product) => (*/}
-        {/*  <ListItem className={classes.listItem} key={product.name}>*/}
-        {/*    <ListItemText primary={product.name + " X " product.} />*/}
-        {/*    <Typography variant="body2">{product.price}</Typography>*/}
-        {/*  </ListItem>*/}
-        {/*))}*/}
-        {/*<ListItem className={classes.listItem}>*/}
-        {/*  <ListItemText primary="Total" />*/}
-        {/*  <Typography variant="subtitle1" className={classes.total}>*/}
-        {/*    $34.06*/}
-        {/*  </Typography>*/}
-        {/*</ListItem>*/}
+        {cart.map((product) => (
+          <ListItem className={classes.listItem} key={product.name}>
+            <ListItemText primary={product.name + ' X ' + product.quantity} />
+            <Typography variant="body2">{product.price}</Typography>
+          </ListItem>
+        ))}
+        <ListItem className={classes.listItem}>
+          <ListItemText primary="Total" />
+          <Typography variant="subtitle1" className={classes.total}>
+            {calculateTotal()}
+          </Typography>
+        </ListItem>
       </>
     );
   };
 
   return (
-    <React.Fragment>
+    <>
       <Typography variant="h6" gutterBottom>
         Order summary
       </Typography>
@@ -104,8 +106,33 @@ const Review: React.FC<CheckoutFormReviewProps> = ({form, changeStepValue}) => {
           <Grid container>{fullPaymentInfo()}</Grid>
         </Grid>
       </Grid>
-    </React.Fragment>
+    </>
   );
 };
 
-export default Review;
+let mapStateToProps = (state: AppState): LinkStateProps => {
+  return {
+    form: state.checkout.form,
+    cart: state.shop.cart,
+  };
+};
+
+let mapDispatchToProps = (
+  dispatch: Dispatch<AppActions>,
+): LinkDispatchProps => ({
+  onCheckoutStepChange: (step) => dispatch(changeStepValue(step)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Review);
+
+const useStyles = makeStyles((theme) => ({
+  listItem: {
+    padding: theme.spacing(1, 0),
+  },
+  total: {
+    fontWeight: 700,
+  },
+  title: {
+    marginTop: theme.spacing(2),
+  },
+}));

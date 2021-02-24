@@ -2,10 +2,19 @@ import React from 'react';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
-import {CheckoutFormAddressAndPaymentProps} from '../../store/types/checkout';
+import {
+  ChangeCheckoutStep,
+  ChangeFormValues,
+  CheckoutForm,
+} from '../../store/types/checkout';
 import {useFormik} from 'formik';
 import * as Yup from 'yup';
 import Button from '@material-ui/core/Button';
+import {AppState} from '../../store/configureStore';
+import {Dispatch} from 'redux';
+import {AppActions} from '../../store/types/actions';
+import {changeFormValues, changeStepValue} from '../../store/actions/checkout';
+import {connect} from 'react-redux';
 
 const validationSchema = Yup.object().shape({
   firstName: Yup.string()
@@ -22,13 +31,24 @@ const validationSchema = Yup.object().shape({
   country: Yup.string().min(2, 'Too Short!').required('Country Is Required'),
 });
 
-const AddressForm: React.FC<CheckoutFormAddressAndPaymentProps> = (props) => {
+interface LinkStateProps {
+  form: CheckoutForm;
+}
+
+interface LinkDispatchProps {
+  onCheckoutFormChange: ChangeFormValues;
+  onCheckoutStepChange: ChangeCheckoutStep;
+}
+
+type Props = LinkDispatchProps & LinkStateProps;
+
+const AddressForm: React.FC<Props> = (props) => {
   const formik = useFormik({
     initialValues: props.form,
     validationSchema: validationSchema,
     onSubmit: (values) => {
-      props.changeFormValues(values);
-      props.changeStepValue(1);
+      props.onCheckoutFormChange(values);
+      props.onCheckoutStepChange(1);
     },
   });
 
@@ -171,4 +191,17 @@ const AddressForm: React.FC<CheckoutFormAddressAndPaymentProps> = (props) => {
   );
 };
 
-export default AddressForm;
+let mapStateToProps = (state: AppState): LinkStateProps => {
+  return {
+    form: state.checkout.form,
+  };
+};
+
+let mapDispatchToProps = (
+  dispatch: Dispatch<AppActions>,
+): LinkDispatchProps => ({
+  onCheckoutFormChange: (form) => dispatch(changeFormValues(form)),
+  onCheckoutStepChange: (step) => dispatch(changeStepValue(step)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(AddressForm);
