@@ -3,7 +3,7 @@ import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import {Button} from '@material-ui/core';
-import {CheckoutFormProps} from '../../store/types/checkout';
+import {CheckoutFormAddressAndPaymentProps} from '../../store/types/checkout';
 import {useFormik} from 'formik';
 import * as Yup from 'yup';
 
@@ -23,13 +23,13 @@ const validationSchema = Yup.object().shape({
     .required('Required'),
 });
 
-const PaymentForm: React.FC<CheckoutFormProps> = (props) => {
+const PaymentForm: React.FC<CheckoutFormAddressAndPaymentProps> = (props) => {
   const formik = useFormik({
     initialValues: props.form,
     validationSchema: validationSchema,
     onSubmit: (values) => {
       props.changeFormValues(values);
-      props.changeStepValue(props.step + 1);
+      props.changeStepValue(2);
     },
   });
 
@@ -107,9 +107,7 @@ const PaymentForm: React.FC<CheckoutFormProps> = (props) => {
           </Grid>
         </Grid>
         <div>
-          <Button onClick={() => props.changeStepValue(props.step - 1)}>
-            Back
-          </Button>
+          <Button onClick={() => props.changeStepValue(0)}>Back</Button>
           <Button variant="contained" color="primary" type="submit">
             Place order
           </Button>

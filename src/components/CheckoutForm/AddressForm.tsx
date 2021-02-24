@@ -2,7 +2,7 @@ import React from 'react';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
-import {CheckoutFormProps} from '../../store/types/checkout';
+import {CheckoutFormAddressAndPaymentProps} from '../../store/types/checkout';
 import {useFormik} from 'formik';
 import * as Yup from 'yup';
 import Button from '@material-ui/core/Button';
@@ -22,17 +22,15 @@ const validationSchema = Yup.object().shape({
   country: Yup.string().min(2, 'Too Short!').required('Country Is Required'),
 });
 
-const AddressForm: React.FC<CheckoutFormProps> = (props) => {
+const AddressForm: React.FC<CheckoutFormAddressAndPaymentProps> = (props) => {
   const formik = useFormik({
     initialValues: props.form,
     validationSchema: validationSchema,
     onSubmit: (values) => {
       props.changeFormValues(values);
-      props.changeStepValue(props.step + 1);
+      props.changeStepValue(1);
     },
   });
-
-  console.log(formik, formik.touched);
 
   return (
     <>

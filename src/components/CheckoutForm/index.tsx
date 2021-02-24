@@ -19,18 +19,17 @@ import {
 
 const steps = ['Shipping address', 'Payment details', 'Review your order'];
 
-function getStepContent(
+const getStepContent = (
   step: number,
   form: CheckoutForm,
   changeFormValues: ChangeFormValues,
   changeStepValue: ChangeCheckoutStep,
-) {
+) => {
   switch (step) {
     case 0:
       return (
         <AddressForm
           form={form}
-          step={step}
           changeFormValues={changeFormValues}
           changeStepValue={changeStepValue}
         />
@@ -39,17 +38,16 @@ function getStepContent(
       return (
         <PaymentForm
           form={form}
-          step={step}
           changeFormValues={changeFormValues}
           changeStepValue={changeStepValue}
         />
       );
     case 2:
-      return <Review />;
+      return <Review form={form} changeStepValue={changeStepValue} />;
     default:
       throw new Error('Unknown step');
   }
-}
+};
 
 const CheckoutFormComponent: React.FC<CheckoutFormProps> = (props) => {
   const classes = useStyles();

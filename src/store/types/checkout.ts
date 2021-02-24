@@ -21,11 +21,18 @@ export type CheckoutForm = {
   cardCvv: string;
 };
 
-export interface CheckoutFormProps {
+export interface CheckoutFormReviewProps {
   form: CheckoutForm;
-  step: number;
-  changeFormValues: ChangeFormValues;
   changeStepValue: ChangeCheckoutStep;
+}
+
+export interface CheckoutFormAddressAndPaymentProps
+  extends CheckoutFormReviewProps {
+  changeFormValues: ChangeFormValues;
+}
+
+export interface CheckoutFormProps extends CheckoutFormAddressAndPaymentProps {
+  step: number;
 }
 
 export type ChangeFormValues = (form: CheckoutForm) => void;
