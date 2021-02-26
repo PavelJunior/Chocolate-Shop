@@ -1,17 +1,16 @@
 import React from 'react';
-import './styles.css';
 import {connect} from 'react-redux';
 import {AppState} from '../../store/configureStore';
-import AddressForm from '../../components/CheckoutForm/AddressForm';
-import PaymentForm from '../../components/CheckoutForm/PaymentForm';
-import Review from '../../components/CheckoutForm/Review';
+import AddressForm from '../../components/CheckoutFormParts/AddressForm';
+import PaymentForm from '../../components/CheckoutFormParts/PaymentForm';
+import Review from '../../components/CheckoutFormParts/Review';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Paper from '@material-ui/core/Paper';
 import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
 import Typography from '@material-ui/core/Typography';
-import {makeStyles} from '@material-ui/core/styles';
+import {useStyles} from './styles';
 
 interface LinkStateProps {
   step: number;
@@ -60,7 +59,7 @@ const Checkout: React.FC<LinkStateProps> = (props) => {
                 </Typography>
               </React.Fragment>
             ) : (
-              <>{getStepContent(props.step)}</>
+              getStepContent(props.step)
             )}
           </>
         </Paper>
@@ -76,40 +75,3 @@ let mapStateToProps = (state: AppState): LinkStateProps => {
 };
 
 export default connect(mapStateToProps, null)(Checkout);
-
-const useStyles = makeStyles((theme) => ({
-  appBar: {
-    position: 'relative',
-  },
-  layout: {
-    width: 'auto',
-    marginLeft: theme.spacing(2),
-    marginRight: theme.spacing(2),
-    [theme.breakpoints.up(600 + theme.spacing(2) * 2)]: {
-      width: 600,
-      marginLeft: 'auto',
-      marginRight: 'auto',
-    },
-  },
-  paper: {
-    marginTop: theme.spacing(3),
-    marginBottom: theme.spacing(3),
-    padding: theme.spacing(2),
-    [theme.breakpoints.up(600 + theme.spacing(3) * 2)]: {
-      marginTop: theme.spacing(6),
-      marginBottom: theme.spacing(6),
-      padding: theme.spacing(3),
-    },
-  },
-  stepper: {
-    padding: theme.spacing(3, 0, 5),
-  },
-  buttons: {
-    display: 'flex',
-    justifyContent: 'flex-end',
-  },
-  button: {
-    marginTop: theme.spacing(3),
-    marginLeft: theme.spacing(1),
-  },
-}));

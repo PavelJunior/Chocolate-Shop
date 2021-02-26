@@ -1,6 +1,3 @@
-import AddressForm from '../../components/CheckoutForm/AddressForm';
-import React from 'react';
-
 export interface CheckoutState {
   step: number;
   form: CheckoutForm;

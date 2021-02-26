@@ -15,6 +15,7 @@ import {Dispatch} from 'redux';
 import {AppActions} from '../../store/types/actions';
 import {changeFormValues, changeStepValue} from '../../store/actions/checkout';
 import {connect} from 'react-redux';
+import {useStyles} from './styles';
 
 const validationSchema = Yup.object().shape({
   nameOnCard: Yup.string().min(4, 'Too Short!').required('Required'),
@@ -52,6 +53,8 @@ const PaymentForm: React.FC<Props> = (props) => {
       props.onCheckoutStepChange(2);
     },
   });
+
+  const classes = useStyles();
 
   return (
     <>
@@ -126,10 +129,18 @@ const PaymentForm: React.FC<Props> = (props) => {
             />
           </Grid>
         </Grid>
-        <div>
-          <Button onClick={() => props.onCheckoutStepChange(0)}>Back</Button>
-          <Button variant="contained" color="primary" type="submit">
-            Place order
+        <div className={classes.buttons}>
+          <Button
+            onClick={() => props.onCheckoutStepChange(0)}
+            className={classes.button}>
+            Back
+          </Button>
+          <Button
+            variant="contained"
+            color="primary"
+            type="submit"
+            className={classes.button}>
+            Next
           </Button>
         </div>
       </form>

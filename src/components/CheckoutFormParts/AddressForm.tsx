@@ -15,6 +15,7 @@ import {Dispatch} from 'redux';
 import {AppActions} from '../../store/types/actions';
 import {changeFormValues, changeStepValue} from '../../store/actions/checkout';
 import {connect} from 'react-redux';
+import {useStyles} from './styles';
 
 const validationSchema = Yup.object().shape({
   firstName: Yup.string()
@@ -51,6 +52,8 @@ const AddressForm: React.FC<Props> = (props) => {
       props.onCheckoutStepChange(1);
     },
   });
+
+  const classes = useStyles();
 
   return (
     <>
@@ -183,9 +186,15 @@ const AddressForm: React.FC<Props> = (props) => {
           </Grid>
         </Grid>
 
-        <Button variant="contained" color="primary" type="submit">
-          Next
-        </Button>
+        <div className={classes.buttons}>
+          <Button
+            variant="contained"
+            color="primary"
+            type="submit"
+            className={classes.button}>
+            Next
+          </Button>
+        </div>
       </form>
     </>
   );

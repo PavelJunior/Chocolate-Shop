@@ -12,6 +12,8 @@ import {AppActions} from '../../store/types/actions';
 import {changeStepValue} from '../../store/actions/checkout';
 import {connect} from 'react-redux';
 import {ShopStateCartItem} from '../../store/types/shop';
+import {Button} from '@material-ui/core';
+import {useStyles} from './styles';
 
 interface LinkStateProps {
   form: CheckoutForm;
@@ -62,8 +64,12 @@ const Review: React.FC<Props> = ({form, cart, onCheckoutStepChange}) => {
   };
 
   const calculateTotal = () => {
-    //todo
-    return '34.65$';
+    let total = 0;
+    cart.forEach((p) => {
+      total += p.price * p.quantity;
+    });
+
+    return `$${total}`;
   };
 
   const productsInfo = () => {
@@ -71,8 +77,8 @@ const Review: React.FC<Props> = ({form, cart, onCheckoutStepChange}) => {
       <>
         {cart.map((product) => (
           <ListItem className={classes.listItem} key={product.name}>
-            <ListItemText primary={product.name + ' X ' + product.quantity} />
-            <Typography variant="body2">{product.price}</Typography>
+            <ListItemText primary={product.name} />
+            <Typography variant="body2">{`$${product.price} x ${product.quantity}`}</Typography>
           </ListItem>
         ))}
         <ListItem className={classes.listItem}>
@@ -105,6 +111,15 @@ const Review: React.FC<Props> = ({form, cart, onCheckoutStepChange}) => {
           </Typography>
           <Grid container>{fullPaymentInfo()}</Grid>
         </Grid>
+        <div className={classes.buttons}>
+          <Button
+            variant="contained"
+            color="primary"
+            type="submit"
+            className={classes.button}>
+            Place order
+          </Button>
+        </div>
       </Grid>
     </>
   );
@@ -124,15 +139,3 @@ let mapDispatchToProps = (
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Review);
-
-const useStyles = makeStyles((theme) => ({
-  listItem: {
-    padding: theme.spacing(1, 0),
-  },
-  total: {
-    fontWeight: 700,
-  },
-  title: {
-    marginTop: theme.spacing(2),
-  },
-}));
