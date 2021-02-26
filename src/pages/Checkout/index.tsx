@@ -15,6 +15,7 @@ import {withRouter} from 'react-router';
 import {RouteComponentProps} from '../../routes/types';
 
 interface CheckoutPageProps extends RouteComponentProps {}
+
 interface LinkStateProps {
   step: number;
   cart: any;

@@ -1,5 +1,6 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
+import {connect} from 'react-redux';
 import {
   AppBar,
   Container,
@@ -9,12 +10,18 @@ import {
   ListItem,
   ListItemText,
   Toolbar,
+  Badge,
 } from '@material-ui/core';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import Drawer from '../Drawer';
 import './styles.css';
+import {AppState} from '../../store/configureStore';
 
-const Header: React.FC = () => {
+interface LinkStateProps {
+  itemsInCart?: number;
+}
+
+const Header: React.FC<LinkStateProps> = ({itemsInCart}) => {
   const navigationLinks: NavigationItem[] = [
     {title: `home`, path: `/`},
     {title: `cart`, path: `/cart`},
@@ -44,13 +51,23 @@ const Header: React.FC = () => {
           <Hidden mdUp>
             <Drawer navigationLinks={navigationLinks} />
           </Hidden>
-          <IconButton color="inherit" aria-label="home">
-            <ShoppingCartIcon fontSize="large" />
-          </IconButton>
+          <Link to="/cart">
+            <IconButton aria-label="home">
+              <Badge badgeContent={itemsInCart} color="secondary">
+                <ShoppingCartIcon fontSize="large" color="inherit" />
+              </Badge>
+            </IconButton>
+          </Link>
         </Container>
       </Toolbar>
     </AppBar>
   );
 };
 
-export default Header;
+const mapStateToProps = (state: AppState): LinkStateProps => {
+  let itemsInCart = 0;
+  state.shop.cart.forEach((p) => (itemsInCart += p.quantity));
+  return {itemsInCart: itemsInCart};
+};
+
+export default connect(mapStateToProps, null)(Header);
