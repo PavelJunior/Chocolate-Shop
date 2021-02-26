@@ -56,7 +56,11 @@ const Cart: React.FC<Props> = (props) => {
     props.cart.forEach((product) => {
       total += product.price * product.quantity;
     });
-    return `$${total}`;
+    return total.toFixed(2);
+  };
+
+  const productTotalPrice = (item: ShopStateCartItem) => {
+    return (item.price * item.quantity).toFixed(2);
   };
 
   const productRows = props.cart.map((item) => {
@@ -81,7 +85,10 @@ const Cart: React.FC<Props> = (props) => {
             {selectQuantityOptions(item.maximumQuantity)}
           </Select>
         </TableCell>
-        <TableCell>{item.price}</TableCell>
+        <TableCell className="cart-product-price">
+          <p>${productTotalPrice(item)}</p>
+          <p>(${item.price} ea)</p>
+        </TableCell>
       </TableRow>
     );
   });
@@ -106,7 +113,7 @@ const Cart: React.FC<Props> = (props) => {
                 <TableCell></TableCell>
                 <TableCell></TableCell>
                 <TableCell></TableCell>
-                <TableCell>{total()}</TableCell>
+                <TableCell>Total: ${total()}</TableCell>
               </TableBody>
             </Table>
           </TableContainer>
