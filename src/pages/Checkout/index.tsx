@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {connect} from 'react-redux';
 import {AppState} from '../../store/configureStore';
 import AddressForm from '../../components/CheckoutFormParts/AddressForm';
@@ -11,27 +11,39 @@ import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
 import Typography from '@material-ui/core/Typography';
 import {useStyles} from './styles';
+import {withRouter} from 'react-router';
+import {RouteComponentProps} from '../../routes/types';
 
+interface CheckoutPageProps extends RouteComponentProps {}
 interface LinkStateProps {
   step: number;
+  cart: any;
 }
 
-const getStepContent = (step: number) => {
-  switch (step) {
-    case 0:
-      return <AddressForm />;
-    case 1:
-      return <PaymentForm />;
-    case 2:
-      return <Review />;
-    default:
-      throw new Error('Unknown step');
-  }
-};
+type Props = CheckoutPageProps & LinkStateProps;
 
-const Checkout: React.FC<LinkStateProps> = ({step}) => {
+const Checkout: React.FC<Props> = ({step, cart, history}) => {
   const classes = useStyles();
   const steps = ['Shipping address', 'Payment details', 'Review your order'];
+
+  useEffect(() => {
+    if (cart.length < 1) {
+      history.push('/');
+    }
+  }, []);
+
+  const getStepContent = (step: number) => {
+    switch (step) {
+      case 0:
+        return <AddressForm />;
+      case 1:
+        return <PaymentForm />;
+      case 2:
+        return <Review />;
+      default:
+        throw new Error('Unknown step');
+    }
+  };
 
   return (
     <>
@@ -71,7 +83,8 @@ const Checkout: React.FC<LinkStateProps> = ({step}) => {
 let mapStateToProps = (state: AppState): LinkStateProps => {
   return {
     step: state.checkout.step,
+    cart: state.shop.cart,
   };
 };
 
-export default connect(mapStateToProps, null)(Checkout);
+export default connect(mapStateToProps, null)(withRouter(Checkout));
