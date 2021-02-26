@@ -10,7 +10,7 @@ import {
   ListItemText,
   Toolbar,
 } from '@material-ui/core';
-import {Home} from '@material-ui/icons';
+import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import Drawer from '../Drawer';
 import './styles.css';
 
@@ -33,9 +33,6 @@ const Header: React.FC = () => {
     <AppBar position="static" className="app-bar">
       <Toolbar>
         <Container className="navbar-container">
-          <IconButton edge="start" color="inherit" aria-label="home">
-            <Home fontSize="large" />
-          </IconButton>
           <Hidden smDown>
             <List
               component="nav"
@@ -47,6 +44,9 @@ const Header: React.FC = () => {
           <Hidden mdUp>
             <Drawer navigationLinks={navigationLinks} />
           </Hidden>
+          <IconButton color="inherit" aria-label="home">
+            <ShoppingCartIcon fontSize="large" />
+          </IconButton>
         </Container>
       </Toolbar>
     </AppBar>
