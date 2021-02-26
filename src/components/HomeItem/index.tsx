@@ -1,24 +1,16 @@
 import React, {useState} from 'react';
 
 import './styles.css';
-import {Card, CardHeader, CardContent, CardMedia} from '@material-ui/core';
+import {Card, CardHeader, CardMedia} from '@material-ui/core';
 
 interface HomeItemProps {
   price: number;
   name: string;
-  description: string;
   images: string[];
 }
 
-const HomeItem: React.FC<HomeItemProps> = ({
-  price,
-  name,
-  description,
-  images,
-}) => {
+const HomeItem: React.FC<HomeItemProps> = ({price, name, images}) => {
   const [imageIndex, setImageIndex] = useState(0);
-
-  console.log(images);
 
   return (
     <Card

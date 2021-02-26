@@ -4,6 +4,7 @@ import {
   REMOVE_PRODUCT_FROM_CART,
   DECREMENT_PRODUCT_IN_CART,
   INCREMENT_PRODUCT_IN_CART,
+  CHANGE_QUANTITY_IN_CART,
   ShopActionTypes,
 } from '../types/actions';
 
@@ -11,8 +12,6 @@ const reducer = (
   state: ShopState = initialState,
   action: ShopActionTypes,
 ): ShopState => {
-  console.log(action.type);
-
   switch (action.type) {
     case ADD_PRODUCT_TO_CART: {
       let updatedCart = [...state.cart];
@@ -84,6 +83,21 @@ const reducer = (
         processingItem.maximumQuantity,
         processingItem.quantity,
         -1,
+      );
+      let itemToUpdate = {...processingItem, quantity: newQty};
+      updatedCart[indexToUpdate] = itemToUpdate;
+      return {...state, cart: updatedCart};
+    }
+
+    case CHANGE_QUANTITY_IN_CART: {
+      let updatedCart = [...state.cart];
+      let indexToUpdate = updatedCart.findIndex((i) => i.id === action.id);
+      let processingItem = updatedCart[indexToUpdate];
+      if (processingItem === undefined) return state;
+      const newQty = getNewQty(
+        processingItem.maximumQuantity,
+        action.quantity,
+        0,
       );
       let itemToUpdate = {...processingItem, quantity: newQty};
       updatedCart[indexToUpdate] = itemToUpdate;

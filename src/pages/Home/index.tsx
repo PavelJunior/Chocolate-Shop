@@ -24,12 +24,7 @@ const Home: React.FC<Props> = (props) => {
     return (
       <Grid item xs={4} key={item.id}>
         <Link to={`product/${item.id}`} className="home-item-link">
-          <HomeItem
-            description={item.description}
-            name={item.name}
-            images={item.images}
-            price={item.price}
-          />
+          <HomeItem name={item.name} images={item.images} price={item.price} />
         </Link>
       </Grid>
     );

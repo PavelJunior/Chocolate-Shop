@@ -4,6 +4,7 @@ export const ADD_PRODUCT_TO_CART = 'ADD_PRODUCT_TO_CART';
 export const REMOVE_PRODUCT_FROM_CART = 'REMOVE_PRODUCT_FROM_CART';
 export const INCREMENT_PRODUCT_IN_CART = 'INCREMENT_PRODUCT_IN_CART';
 export const DECREMENT_PRODUCT_IN_CART = 'DECREMENT_PRODUCT_IN_CART';
+export const CHANGE_QUANTITY_IN_CART = 'CHANGE_QUANTITY_IN_CART';
 
 interface AddProductToCartAction {
   type: typeof ADD_PRODUCT_TO_CART;
@@ -26,6 +27,12 @@ interface DecrementProductAction {
   id: number;
 }
 
+interface ChangeQuantityOfProduct {
+  type: typeof CHANGE_QUANTITY_IN_CART;
+  id: number;
+  quantity: number;
+}
+
 export const CHECKOUT_CHANGE_FORM_VALUES = 'CHECKOUT_CHANGE_FORM_VALUES';
 export const CHECKOUT_CHANGE_STEP_VALUE = 'CHECKOUT_CHANGE_STEP_VALUE';
 
@@ -43,7 +50,8 @@ export type ShopActionTypes =
   | AddProductToCartAction
   | RemoveProductFromCartAction
   | IncrementProductAction
-  | DecrementProductAction;
+  | DecrementProductAction
+  | ChangeQuantityOfProduct;
 
 export type CheckoutActionsTypes = ChangeFormValues | ChangeStepValue;
 

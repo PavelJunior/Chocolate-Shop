@@ -10,13 +10,9 @@ const reducer = (
   state: CheckoutState = initialState,
   action: CheckoutActionsTypes,
 ): CheckoutState => {
-  console.log(action.type);
-
   switch (action.type) {
     case CHECKOUT_CHANGE_FORM_VALUES: {
-      console.log('here');
       let updatedState = {...action.form};
-      console.log(111, updatedState);
       return {...state, form: updatedState};
     }
 

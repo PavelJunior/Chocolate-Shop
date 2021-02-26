@@ -9,6 +9,8 @@ import {
   TableRow,
   Paper,
   Button,
+  Select,
+  MenuItem,
 } from '@material-ui/core';
 
 import {connect} from 'react-redux';
@@ -16,13 +18,11 @@ import {ShopStateCartItem} from '../../store/types/shop';
 import {AppState} from '../../store/configureStore';
 import {Dispatch} from 'redux';
 import {AppActions} from '../../store/types/actions';
-import {
-  incrementInCart,
-  decrementInCart,
-  removeFromCart,
-} from '../../store/actions/shop';
+import {removeFromCart, changeQuantityInCart} from '../../store/actions/shop';
 import {RouteComponentProps} from './../../routes/types';
 import {Link} from 'react-router-dom';
+import ClearIcon from '@material-ui/icons/Clear';
+import './styles.css';
 
 interface CartPageProps extends RouteComponentProps {}
 
@@ -31,8 +31,7 @@ interface LinkStateProps {
 }
 
 interface LinkDispatchProps {
-  onIncrementInCart: (id: number) => void;
-  onDecrementInCart: (id: number) => void;
+  changeQuantityInCart: (id: number, quantity: number) => void;
   onRemoveFromCart: (id: number) => void;
 }
 
@@ -40,20 +39,41 @@ type Props = CartPageProps & LinkDispatchProps & LinkStateProps;
 
 const Cart: React.FC<Props> = (props) => {
   const productRows = props.cart.map((item) => {
-    const total = item.quantity * item.price;
+    const onChangeQuantityInCart = (id: number, value: any) => {
+      props.changeQuantityInCart(id, parseInt(value));
+    };
+
+    const selectQuantityOptions = (maxQty: number) => {
+      let option = [];
+      for (let i = 1; i <= maxQty; i++) {
+        option.push(<MenuItem value={i}>{i}</MenuItem>);
+      }
+
+      return option;
+    };
 
     return (
       <TableRow>
-        <TableCell>{item.name}</TableCell>
-        <TableCell>{item.price}</TableCell>
-        <TableCell>{item.name}</TableCell>
         <TableCell>
-          <button onClick={() => props.onDecrementInCart(item.id)}>-</button>
-          {item.quantity}
-          <button onClick={() => props.onIncrementInCart(item.id)}>+</button>
-          <button onClick={() => props.onRemoveFromCart(item.id)}>x</button>
+          <ClearIcon onClick={() => props.onRemoveFromCart(item.id)} />
         </TableCell>
-        <TableCell>{total}</TableCell>
+        <TableCell className="cart-product-cell">
+          <img
+            src={`/images/${item.images[0]}`}
+            alt={item.name}
+            className="cart-image"
+          />
+          <p>{item.name}</p>
+        </TableCell>
+        <TableCell>
+          <Select
+            value={item.quantity}
+            onChange={(e) => onChangeQuantityInCart(item.id, e.target.value)}
+            className="product-select">
+            {selectQuantityOptions(item.maximumQuantity)}
+          </Select>
+        </TableCell>
+        <TableCell>{item.price}</TableCell>
       </TableRow>
     );
   });
@@ -67,18 +87,19 @@ const Cart: React.FC<Props> = (props) => {
             <Table size="medium" aria-label="table">
               <TableHead>
                 <TableRow>
-                  <TableCell>Title</TableCell>
+                  <TableCell></TableCell>
+                  <TableCell>Product</TableCell>
+                  <TableCell>Quantity</TableCell>
                   <TableCell>Price</TableCell>
-                  <TableCell>Count</TableCell>
-                  <TableCell>Actions</TableCell>
-                  <TableCell>Total</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>{productRows}</TableBody>
             </Table>
           </TableContainer>
-          <Link to="/checkout">
-            <Button variant="contained">Checkout</Button>
+          <Link to="/checkout" className="cart-checkout-link">
+            <Button variant="contained" className="cart-checkout-button">
+              Checkout
+            </Button>
           </Link>
         </>
       ) : (
@@ -97,8 +118,8 @@ let mapStateToProps = (state: AppState): LinkStateProps => {
 let mapDispatchToProps = (
   dispatch: Dispatch<AppActions>,
 ): LinkDispatchProps => ({
-  onIncrementInCart: (id) => dispatch(incrementInCart(id)),
-  onDecrementInCart: (id) => dispatch(decrementInCart(id)),
+  changeQuantityInCart: (id, quantity) =>
+    dispatch(changeQuantityInCart(id, quantity)),
   onRemoveFromCart: (id) => dispatch(removeFromCart(id)),
 });
 

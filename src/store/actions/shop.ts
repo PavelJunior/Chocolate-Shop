@@ -1,10 +1,10 @@
-import {AppActions} from '../types/actions';
-
 import {
   ADD_PRODUCT_TO_CART,
   DECREMENT_PRODUCT_IN_CART,
   INCREMENT_PRODUCT_IN_CART,
   REMOVE_PRODUCT_FROM_CART,
+  CHANGE_QUANTITY_IN_CART,
+  AppActions,
 } from './../types/actions';
 
 export const addToCart = (id: number, quantity: number): AppActions => ({
@@ -26,4 +26,13 @@ export const incrementInCart = (id: number): AppActions => ({
 export const decrementInCart = (id: number): AppActions => ({
   type: DECREMENT_PRODUCT_IN_CART,
   id: id,
+});
+
+export const changeQuantityInCart = (
+  id: number,
+  quantity: number,
+): AppActions => ({
+  type: CHANGE_QUANTITY_IN_CART,
+  id: id,
+  quantity: quantity,
 });
