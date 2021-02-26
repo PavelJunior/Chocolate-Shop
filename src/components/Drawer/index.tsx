@@ -5,6 +5,7 @@ import {
   ListItem,
   ListItemText,
   List,
+  Typography,
 } from '@material-ui/core';
 import {Menu} from '@material-ui/icons';
 import React, {useState} from 'react';
@@ -44,8 +45,12 @@ const SideDrawer: React.FC<DrawerProps> = ({navigationLinks}) => {
   );
   const navLinkComponents = navigationLinks.map(({title, path}) => (
     <ListItem className="navbar-list-item" button>
-      <Link to={path} className="navbar-drawer-item-link">
-        <ListItemText primary={title} />
+      <Link to={path} className="navbar-item-link">
+        <ListItemText
+          primary={
+            <Typography className="navbar-item-text">{title}</Typography>
+          }
+        />
       </Link>
     </ListItem>
   ));
@@ -55,7 +60,11 @@ const SideDrawer: React.FC<DrawerProps> = ({navigationLinks}) => {
       <IconButton edge="start" aria-label="menu" onClick={toggleDrawer(true)}>
         <Menu fontSize="large" />
       </IconButton>
-      <Drawer anchor="left" open={menuOpen} onClose={toggleDrawer(false)}>
+      <Drawer
+        anchor="left"
+        open={menuOpen}
+        onClose={toggleDrawer(false)}
+        classes={{paper: 'navbar-drawer'}}>
         {drawerList()}
       </Drawer>
     </>

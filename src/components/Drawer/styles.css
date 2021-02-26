@@ -1,12 +1,11 @@
-.navbar-drawer-item-link{
-    text-decoration: none;
-    text-transform: uppercase;
-    color: black;
-}
-
 .navbar-drawer-list{
+    background-color: rgb(241, 241, 233);
     min-width: 200px;
     display: flex;
     justify-content: space-between;
     flex-direction: column;
+}
+
+.navbar-drawer{
+    background-color: rgb(241, 241, 233);
 }
