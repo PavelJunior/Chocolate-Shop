@@ -1,4 +1,4 @@
-import React, {ChangeEvent, useState} from 'react';
+import React, {useState} from 'react';
 
 import Error404 from '../../components/Error404';
 
@@ -27,7 +27,7 @@ interface LinkDispatchProps {
 type Props = ProductPageProps & LinkDispatchProps & LinkStateProps;
 
 const Product: React.FC<Props> = (props) => {
-  const [quantity, setQuantity] = useState(1);
+  const [quantity, setQuantity] = useState<number>(1);
 
   const onSelectChange = (e: any) => {
     setQuantity(e.target.value);
@@ -40,7 +40,11 @@ const Product: React.FC<Props> = (props) => {
   const selectQuantityOptions = (maxQty: number) => {
     let option = [];
     for (let i = 1; i <= maxQty; i++) {
-      option.push(<MenuItem value={i}>{i}</MenuItem>);
+      option.push(
+        <MenuItem value={i} className="product-select-item">
+          {i}
+        </MenuItem>,
+      );
     }
 
     return option;

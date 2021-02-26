@@ -37,7 +37,7 @@ const Header: React.FC<LinkStateProps> = ({itemsInCart}) => {
   ));
 
   return (
-    <AppBar position="static" className="app-bar">
+    <AppBar position="static" className="app-bar" color="transparent">
       <Toolbar>
         <Container className="navbar-container">
           <Hidden smDown>
@@ -53,7 +53,7 @@ const Header: React.FC<LinkStateProps> = ({itemsInCart}) => {
           </Hidden>
           <Link to="/cart">
             <IconButton aria-label="home">
-              <Badge badgeContent={itemsInCart} color="secondary">
+              <Badge badgeContent={itemsInCart} color="primary">
                 <ShoppingCartIcon fontSize="large" color="inherit" />
               </Badge>
             </IconButton>

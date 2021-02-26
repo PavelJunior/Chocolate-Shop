@@ -45,7 +45,11 @@ const Cart: React.FC<Props> = (props) => {
   const selectQuantityOptions = (maxQty: number) => {
     let option = [];
     for (let i = 1; i <= maxQty; i++) {
-      option.push(<MenuItem value={i}>{i}</MenuItem>);
+      option.push(
+        <MenuItem value={i} className="product-select-item">
+          {i}
+        </MenuItem>,
+      );
     }
 
     return option;
@@ -99,7 +103,7 @@ const Cart: React.FC<Props> = (props) => {
       {props.cart.length > 0 ? (
         <>
           <TableContainer component={Paper}>
-            <Table size="medium" aria-label="table">
+            <Table size="medium" aria-label="table" className="cart-table">
               <TableHead>
                 <TableRow>
                   <TableCell></TableCell>
@@ -124,7 +128,7 @@ const Cart: React.FC<Props> = (props) => {
           </Link>
         </>
       ) : (
-        <p>No items in cart</p>
+        <p>You have nothing in your shopping cart.</p>
       )}
     </>
   );
