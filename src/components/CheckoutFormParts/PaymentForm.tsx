@@ -44,17 +44,21 @@ interface LinkDispatchProps {
 
 type Props = LinkDispatchProps & LinkStateProps;
 
-const PaymentForm: React.FC<Props> = (props) => {
+const PaymentForm: React.FC<Props> = ({
+  onCheckoutFormChange,
+  onCheckoutStepChange,
+  form,
+}) => {
+  const classes = useStyles();
+
   const formik = useFormik({
-    initialValues: props.form,
+    initialValues: form,
     validationSchema: validationSchema,
     onSubmit: (values) => {
-      props.onCheckoutFormChange(values);
-      props.onCheckoutStepChange(2);
+      onCheckoutFormChange(values);
+      onCheckoutStepChange(2);
     },
   });
-
-  const classes = useStyles();
 
   return (
     <>
@@ -131,7 +135,7 @@ const PaymentForm: React.FC<Props> = (props) => {
         </Grid>
         <div className={classes.buttons}>
           <Button
-            onClick={() => props.onCheckoutStepChange(0)}
+            onClick={() => onCheckoutStepChange(0)}
             className={classes.button}>
             Back
           </Button>

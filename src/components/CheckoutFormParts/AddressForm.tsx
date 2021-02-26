@@ -43,17 +43,21 @@ interface LinkDispatchProps {
 
 type Props = LinkDispatchProps & LinkStateProps;
 
-const AddressForm: React.FC<Props> = (props) => {
+const AddressForm: React.FC<Props> = ({
+  form,
+  onCheckoutStepChange,
+  onCheckoutFormChange,
+}) => {
+  const classes = useStyles();
+
   const formik = useFormik({
-    initialValues: props.form,
+    initialValues: form,
     validationSchema: validationSchema,
     onSubmit: (values) => {
-      props.onCheckoutFormChange(values);
-      props.onCheckoutStepChange(1);
+      onCheckoutFormChange(values);
+      onCheckoutStepChange(1);
     },
   });
-
-  const classes = useStyles();
 
   return (
     <>

@@ -113,6 +113,7 @@ const Review: React.FC<Props> = ({form, cart, onCheckoutStepChange}) => {
         </Grid>
         <div className={classes.buttons}>
           <Button
+            onClick={() => onCheckoutStepChange(3)}
             variant="contained"
             color="primary"
             type="submit"

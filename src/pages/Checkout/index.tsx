@@ -29,7 +29,7 @@ const getStepContent = (step: number) => {
   }
 };
 
-const Checkout: React.FC<LinkStateProps> = (props) => {
+const Checkout: React.FC<LinkStateProps> = ({step}) => {
   const classes = useStyles();
   const steps = ['Shipping address', 'Payment details', 'Review your order'];
 
@@ -39,7 +39,7 @@ const Checkout: React.FC<LinkStateProps> = (props) => {
       <CssBaseline />
       <main className={classes.layout}>
         <Paper className={classes.paper}>
-          <Stepper activeStep={props.step} className={classes.stepper}>
+          <Stepper activeStep={step} className={classes.stepper}>
             {steps.map((label) => (
               <Step key={label}>
                 <StepLabel>{label}</StepLabel>
@@ -47,8 +47,8 @@ const Checkout: React.FC<LinkStateProps> = (props) => {
             ))}
           </Stepper>
           <>
-            {props.step === steps.length ? (
-              <React.Fragment>
+            {step === steps.length ? (
+              <>
                 <Typography variant="h5" gutterBottom>
                   Thank you for your order.
                 </Typography>
@@ -57,9 +57,9 @@ const Checkout: React.FC<LinkStateProps> = (props) => {
                   confirmation, and will send you an update when your order has
                   shipped.
                 </Typography>
-              </React.Fragment>
+              </>
             ) : (
-              getStepContent(props.step)
+              getStepContent(step)
             )}
           </>
         </Paper>
