@@ -14,6 +14,10 @@
     color: rgba(41,41,41,.68);
 }
 
+.navbar-item-text{
+    font-weight: 700;
+}
+
 .app-bar{
    margin-bottom: 40px;
 }

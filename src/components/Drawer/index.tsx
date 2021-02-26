@@ -53,7 +53,7 @@ const SideDrawer: React.FC<DrawerProps> = ({navigationLinks}) => {
   return (
     <>
       <IconButton edge="start" aria-label="menu" onClick={toggleDrawer(true)}>
-        <Menu fontSize="large" className="navbar-drawer-icon" />
+        <Menu fontSize="large" />
       </IconButton>
       <Drawer anchor="left" open={menuOpen} onClose={toggleDrawer(false)}>
         {drawerList()}

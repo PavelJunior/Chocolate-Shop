@@ -11,6 +11,7 @@ import {
   ListItemText,
   Toolbar,
   Badge,
+  Typography,
 } from '@material-ui/core';
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import Drawer from '../Drawer';
@@ -31,7 +32,11 @@ const Header: React.FC<LinkStateProps> = ({itemsInCart}) => {
   const navLinkComponents = navigationLinks.map(({title, path}) => (
     <ListItem key={title} className="navbar-list-item" button>
       <Link to={path} className="navbar-item-link">
-        <ListItemText primary={title} />
+        <ListItemText
+          primary={
+            <Typography className="navbar-item-text">{title}</Typography>
+          }
+        />
       </Link>
     </ListItem>
   ));
