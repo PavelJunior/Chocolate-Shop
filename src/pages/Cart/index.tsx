@@ -38,20 +38,28 @@ interface LinkDispatchProps {
 type Props = CartPageProps & LinkDispatchProps & LinkStateProps;
 
 const Cart: React.FC<Props> = (props) => {
+  const onChangeQuantityInCart = (id: number, value: any) => {
+    props.changeQuantityInCart(id, parseInt(value));
+  };
+
+  const selectQuantityOptions = (maxQty: number) => {
+    let option = [];
+    for (let i = 1; i <= maxQty; i++) {
+      option.push(<MenuItem value={i}>{i}</MenuItem>);
+    }
+
+    return option;
+  };
+
+  const total = () => {
+    let total = 0;
+    props.cart.forEach((product) => {
+      total += product.price * product.quantity;
+    });
+    return `$${total}`;
+  };
+
   const productRows = props.cart.map((item) => {
-    const onChangeQuantityInCart = (id: number, value: any) => {
-      props.changeQuantityInCart(id, parseInt(value));
-    };
-
-    const selectQuantityOptions = (maxQty: number) => {
-      let option = [];
-      for (let i = 1; i <= maxQty; i++) {
-        option.push(<MenuItem value={i}>{i}</MenuItem>);
-      }
-
-      return option;
-    };
-
     return (
       <TableRow>
         <TableCell>
@@ -94,6 +102,12 @@ const Cart: React.FC<Props> = (props) => {
                 </TableRow>
               </TableHead>
               <TableBody>{productRows}</TableBody>
+              <TableBody>
+                <TableCell></TableCell>
+                <TableCell></TableCell>
+                <TableCell></TableCell>
+                <TableCell>{total()}</TableCell>
+              </TableBody>
             </Table>
           </TableContainer>
           <Link to="/checkout" className="cart-checkout-link">
