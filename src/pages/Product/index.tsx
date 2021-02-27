@@ -9,7 +9,6 @@ import {Dispatch} from 'redux';
 import {AppActions} from '../../store/types/actions';
 import {addToCart} from '../../store/actions/shop';
 import {RouteComponentProps} from './../../routes/types';
-
 import {Select, InputLabel, MenuItem, Button} from '@material-ui/core';
 
 import './styles.css';

@@ -17,10 +17,8 @@
     "pwa-helpers": "^0.9.1",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
-    "react-image-gallery": "^1.0.8",
-    "react-notifications": "^1.7.2",
-    "react-notifications-component": "^3.0.3",
     "react-redux": "^7.2.2",
+    "react-redux-notify": "^4.2.1",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.2",
     "redux": "^4.0.5",
@@ -54,6 +52,7 @@
   },
   "devDependencies": {
     "@types/react-image-gallery": "^1.0.2",
+    "@types/react-notification-system-redux": "^1.1.6",
     "@types/react-notifications-component": "^2.4.0",
     "@types/react-redux": "^7.1.16",
     "@types/react-router-dom": "^5.1.7"

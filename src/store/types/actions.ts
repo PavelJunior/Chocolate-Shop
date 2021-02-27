@@ -1,4 +1,5 @@
 import {CheckoutForm} from './../types/checkout';
+import {NotificationItem} from '../types/notification';
 
 export const ADD_PRODUCT_TO_CART = 'ADD_PRODUCT_TO_CART';
 export const REMOVE_PRODUCT_FROM_CART = 'REMOVE_PRODUCT_FROM_CART';
@@ -46,6 +47,19 @@ interface ChangeStepValue {
   step: number;
 }
 
+export const ADD_NOTIFICATION = 'ADD_NOTIFICATION';
+export const DELETE_NOTIFICATION = 'DELETE_NOTIFICATION';
+
+interface AddNotification {
+  type: typeof ADD_NOTIFICATION;
+  notification: NotificationItem;
+}
+
+interface DeleteNotification {
+  type: typeof DELETE_NOTIFICATION;
+  id: number;
+}
+
 export type ShopActionTypes =
   | AddProductToCartAction
   | RemoveProductFromCartAction
@@ -55,4 +69,9 @@ export type ShopActionTypes =
 
 export type CheckoutActionsTypes = ChangeFormValues | ChangeStepValue;
 
-export type AppActions = ShopActionTypes | CheckoutActionsTypes;
+export type NotificationActionsTypes = AddNotification | DeleteNotification;
+
+export type AppActions =
+  | ShopActionTypes
+  | CheckoutActionsTypes
+  | NotificationActionsTypes;

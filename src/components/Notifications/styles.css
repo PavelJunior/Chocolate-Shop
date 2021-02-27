@@ -1,0 +1,27 @@
+.notification {
+    align-items: flex-start;
+    border-radius: 4px;
+    color: #ffffff;
+    display: flex;
+    padding: 16px;
+    align-items: center;
+}
+
+.notification:not(:last-child) {
+    margin: 0 0 12px;
+}
+
+.notification-content {
+    flex: 1 1 auto;
+    margin: 0 12px 0 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.notifications {
+    z-index: 1000;
+    bottom: 24px;
+    position: fixed;
+    left: 24px;
+    width: 240px;
+}

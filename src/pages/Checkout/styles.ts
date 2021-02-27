@@ -12,6 +12,7 @@ export const useStyles = makeStyles((theme) => ({
     },
   },
   paper: {
+    backgroundColor: '#f8f8f4',
     marginTop: theme.spacing(3),
     marginBottom: theme.spacing(3),
     padding: theme.spacing(2),
@@ -22,6 +23,7 @@ export const useStyles = makeStyles((theme) => ({
     },
   },
   stepper: {
+    backgroundColor: '#f8f8f4',
     padding: theme.spacing(3, 0, 5),
   },
 }));

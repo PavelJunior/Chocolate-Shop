@@ -2,6 +2,7 @@ import React from 'react';
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 import {routes} from '../routes';
 import Header from '../components/Header';
+import Notifications from '../components/Notifications';
 
 import {Container} from '@material-ui/core';
 
@@ -22,6 +23,7 @@ function App() {
   return (
     <Router>
       <Header />
+      <Notifications />
       <Container>
         <Switch>{routeComponent}</Switch>
       </Container>
