@@ -4,6 +4,7 @@ import {
   DELETE_NOTIFICATION,
 } from '../types/actions';
 import {NotificationItem} from '../types/notification';
+import {Dispatch} from 'redux';
 
 export const addNotification = (
   notification: NotificationItem,
@@ -19,7 +20,7 @@ export const deleteNotification = (id: number): AppActions => ({
 
 export const addNotificationWithTimeout = (
   notification: NotificationItem,
-  dispatch: any,
+  dispatch: Dispatch<AppActions>,
 ) => {
   dispatch(addNotification(notification));
   setTimeout(() => {

@@ -12,27 +12,37 @@ import {RouteComponentProps} from './../../routes/types';
 import {Select, InputLabel, MenuItem, Button} from '@material-ui/core';
 
 import './styles.css';
+import {addNotificationWithTimeout} from '../../store/actions/notification';
+import {NotificationItem} from '../../store/types/notification';
 
 interface ProductPageProps extends RouteComponentProps {}
 
 interface LinkStateProps {
   product: ShopStateProduct | undefined;
+  quantityInCart: number;
 }
 
 interface LinkDispatchProps {
   onAddToCart: (id: number, quantity: number) => void;
+  notificationWithTimeout: (notification: NotificationItem) => void;
 }
 
 type Props = ProductPageProps & LinkDispatchProps & LinkStateProps;
 
-const Product: React.FC<Props> = (props) => {
+const Product: React.FC<Props> = ({
+  product,
+  quantityInCart,
+  onAddToCart,
+  match,
+  notificationWithTimeout,
+}) => {
   const [quantity, setQuantity] = useState<number>(1);
 
   const onSelectChange = (e: any) => {
     setQuantity(e.target.value);
   };
 
-  const images = props.product?.images.map((i) => {
+  const images = product?.images.map((i) => {
     return <img src={`/images/${i}`} className="product-image" />;
   });
 
@@ -49,15 +59,40 @@ const Product: React.FC<Props> = (props) => {
     return option;
   };
 
-  return props.product === undefined ? (
+  const successfulNotification: NotificationItem = {
+    id: new Date().getTime(),
+    type: 'success',
+    text: 'Product added to the cart successfully!',
+    lifeTime: 7000,
+  };
+
+  const warningNotification: NotificationItem = {
+    id: new Date().getTime(),
+    type: 'warning',
+    text: 'You added maximum quantity of this product in your cart!',
+    lifeTime: 7000,
+  };
+
+  const onAddToCartClick = () => {
+    onAddToCart(parseInt(match.params.id), quantity);
+    if (product === undefined) return;
+
+    if (quantityInCart + quantity > product.maximumQuantity) {
+      notificationWithTimeout(warningNotification);
+    } else {
+      notificationWithTimeout(successfulNotification);
+    }
+  };
+
+  return product === undefined ? (
     <Error404 />
   ) : (
     <div className="product">
       <div className="product-images">{images}</div>
       <div className="product-content">
-        <h2>{props.product.name}</h2>
-        <h3>${props.product.price}</h3>
-        <div dangerouslySetInnerHTML={{__html: props.product.description}} />
+        <h2>{product.name}</h2>
+        <h3>${product.price}</h3>
+        <div dangerouslySetInnerHTML={{__html: product.description}} />
 
         <InputLabel id="label">Quantity</InputLabel>
         <Select
@@ -65,13 +100,9 @@ const Product: React.FC<Props> = (props) => {
           value={quantity}
           onChange={(e) => onSelectChange(e)}
           className="product-select">
-          {selectQuantityOptions(props.product.maximumQuantity)}
+          {selectQuantityOptions(product.maximumQuantity)}
         </Select>
-        <Button
-          variant="contained"
-          onClick={() =>
-            props.onAddToCart(parseInt(props.match.params.id), quantity)
-          }>
+        <Button variant="contained" onClick={() => onAddToCartClick()}>
           Add To Cart
         </Button>
       </div>
@@ -86,9 +117,14 @@ let mapStateToProps = (
   const product = state.shop.products.find(
     (product) => product.id === parseInt(ownProps.match.params.id),
   );
+  const itemInCart = state.shop.cart.find(
+    (product) => product.id === parseInt(ownProps.match.params.id),
+  );
+  const quantityInCart = itemInCart ? itemInCart.quantity : 0;
 
   return {
     product,
+    quantityInCart,
   };
 };
 
@@ -96,6 +132,8 @@ let mapDispatchToProps = (
   dispatch: Dispatch<AppActions>,
 ): LinkDispatchProps => ({
   onAddToCart: (id, quantity) => dispatch(addToCart(id, quantity)),
+  notificationWithTimeout: (notification) =>
+    addNotificationWithTimeout(notification, dispatch),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Product);
