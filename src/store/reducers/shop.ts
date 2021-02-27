@@ -5,6 +5,7 @@ import {
   DECREMENT_PRODUCT_IN_CART,
   INCREMENT_PRODUCT_IN_CART,
   CHANGE_QUANTITY_IN_CART,
+  DELETE_EVERYTHING_FROM_CART,
   ShopActionTypes,
 } from '../types/actions';
 
@@ -102,6 +103,10 @@ const reducer = (
       let itemToUpdate = {...processingItem, quantity: newQty};
       updatedCart[indexToUpdate] = itemToUpdate;
       return {...state, cart: updatedCart};
+    }
+
+    case DELETE_EVERYTHING_FROM_CART: {
+      return {...state, cart: []};
     }
 
     default:

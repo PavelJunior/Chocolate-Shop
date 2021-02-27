@@ -1,5 +1,4 @@
 import React from 'react';
-import {makeStyles} from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
@@ -10,6 +9,7 @@ import {AppState} from '../../store/configureStore';
 import {Dispatch} from 'redux';
 import {AppActions} from '../../store/types/actions';
 import {changeStepValue} from '../../store/actions/checkout';
+import {deleteEverythingFromCart} from '../../store/actions/shop';
 import {connect} from 'react-redux';
 import {ShopStateCartItem} from '../../store/types/shop';
 import {Button} from '@material-ui/core';
@@ -22,11 +22,17 @@ interface LinkStateProps {
 
 interface LinkDispatchProps {
   onCheckoutStepChange: ChangeCheckoutStep;
+  emptyCart: () => void;
 }
 
 type Props = LinkDispatchProps & LinkStateProps;
 
-const Review: React.FC<Props> = ({form, cart, onCheckoutStepChange}) => {
+const Review: React.FC<Props> = ({
+  form,
+  cart,
+  onCheckoutStepChange,
+  emptyCart,
+}) => {
   const classes = useStyles();
 
   const fullAddressString = () => {
@@ -72,6 +78,11 @@ const Review: React.FC<Props> = ({form, cart, onCheckoutStepChange}) => {
     return `$${total}`;
   };
 
+  const submitOrder = () => {
+    onCheckoutStepChange(3);
+    emptyCart();
+  };
+
   const productsInfo = () => {
     return (
       <>
@@ -113,7 +124,7 @@ const Review: React.FC<Props> = ({form, cart, onCheckoutStepChange}) => {
         </Grid>
         <div className={classes.buttons}>
           <Button
-            onClick={() => onCheckoutStepChange(3)}
+            onClick={() => submitOrder()}
             variant="contained"
             color="primary"
             type="submit"
@@ -137,6 +148,7 @@ let mapDispatchToProps = (
   dispatch: Dispatch<AppActions>,
 ): LinkDispatchProps => ({
   onCheckoutStepChange: (step) => dispatch(changeStepValue(step)),
+  emptyCart: () => dispatch(deleteEverythingFromCart()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Review);

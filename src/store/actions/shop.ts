@@ -1,10 +1,11 @@
 import {
   ADD_PRODUCT_TO_CART,
+  AppActions,
+  CHANGE_QUANTITY_IN_CART,
   DECREMENT_PRODUCT_IN_CART,
+  DELETE_EVERYTHING_FROM_CART,
   INCREMENT_PRODUCT_IN_CART,
   REMOVE_PRODUCT_FROM_CART,
-  CHANGE_QUANTITY_IN_CART,
-  AppActions,
 } from './../types/actions';
 
 export const addToCart = (id: number, quantity: number): AppActions => ({
@@ -35,4 +36,8 @@ export const changeQuantityInCart = (
   type: CHANGE_QUANTITY_IN_CART,
   id: id,
   quantity: quantity,
+});
+
+export const deleteEverythingFromCart = (): AppActions => ({
+  type: DELETE_EVERYTHING_FROM_CART,
 });
