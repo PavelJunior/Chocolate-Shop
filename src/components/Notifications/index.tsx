@@ -1,5 +1,4 @@
 import React from 'react';
-
 import './styles.css';
 import {connect} from 'react-redux';
 import {AppState} from '../../store/configureStore';
@@ -8,6 +7,7 @@ import {AppActions} from '../../store/types/actions';
 import {deleteNotification} from '../../store/actions/notification';
 import {NotificationItem} from '../../store/types/notification';
 import ClearIcon from '@material-ui/icons/Clear';
+import {CSSTransition, TransitionGroup} from 'react-transition-group';
 
 interface LinkStateProps {
   notifications: NotificationItem[];
@@ -23,17 +23,28 @@ const Notification: React.FC<Props> = ({
   notifications,
   onDeleteNotification,
 }) => {
+  const notificationsRender = () => {
+    return notifications.map((notification) => (
+      <CSSTransition
+        key={notification.id}
+        classNames={{
+          enter: 'notificationItemEnter',
+          enterActive: 'notificationItemEnterActive',
+          exitActive: 'notificationItemLeaveActive',
+        }}
+        timeout={500}>
+        <li className={`notification notification-${notification.type}`}>
+          <p className="notification-content">{notification.text}</p>
+          <ClearIcon onClick={() => onDeleteNotification(notification.id)} />
+        </li>
+      </CSSTransition>
+    ));
+  };
+
   return (
     <div>
       <ul className="notifications">
-        {notifications.map((notification) => (
-          <li
-            className={`notification notification-${notification.type}`}
-            key={notification.id}>
-            <p className="notification-content">{notification.text}</p>
-            <ClearIcon onClick={() => onDeleteNotification(notification.id)} />
-          </li>
-        ))}
+        <TransitionGroup>{notificationsRender()}</TransitionGroup>
       </ul>
     </div>
   );

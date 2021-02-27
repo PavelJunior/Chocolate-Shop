@@ -50,3 +50,18 @@
     left: 24px;
     width: 300px;
 }
+
+
+.notificationItemEnter{
+    opacity: 0;
+}
+
+.notificationItemEnterActive{
+    transition: opacity 0.5s;
+    opacity: 1;
+}
+
+.notificationItemLeaveActive{
+    transition: opacity 0.5s;
+    opacity: 0;
+}
