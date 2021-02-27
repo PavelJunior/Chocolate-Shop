@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {memo} from 'react';
 
 import HomeItem from '../../components/HomeItem';
 import {Grid} from '@material-ui/core';
@@ -51,4 +51,4 @@ let mapStateToProps = (state: AppState): LinkStateProps => {
   };
 };
 
-export default connect(mapStateToProps, null)(Home);
+export default connect(mapStateToProps, null)(memo(Home));

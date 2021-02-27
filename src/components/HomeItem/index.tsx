@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, memo} from 'react';
 
 import './styles.css';
 import {Card, CardHeader, CardMedia} from '@material-ui/core';
@@ -30,4 +30,4 @@ const HomeItem: React.FC<HomeItemProps> = ({price, name, images}) => {
   );
 };
 
-export default HomeItem;
+export default memo(HomeItem);

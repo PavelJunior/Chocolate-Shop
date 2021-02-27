@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {memo} from 'react';
 
 import {
   Table,
@@ -148,4 +148,4 @@ let mapDispatchToProps = (
   onRemoveFromCart: (id) => dispatch(removeFromCart(id)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Cart);
+export default connect(mapStateToProps, mapDispatchToProps)(memo(Cart));

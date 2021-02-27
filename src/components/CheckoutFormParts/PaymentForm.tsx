@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {memo} from 'react';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
@@ -165,4 +165,4 @@ let mapDispatchToProps = (
   onCheckoutStepChange: (step) => dispatch(changeStepValue(step)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(PaymentForm);
+export default connect(mapStateToProps, mapDispatchToProps)(memo(PaymentForm));

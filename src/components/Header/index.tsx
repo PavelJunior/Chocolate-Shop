@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {memo} from 'react';
 import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
 import {
@@ -75,4 +75,4 @@ const mapStateToProps = (state: AppState): LinkStateProps => {
   return {itemsInCart: itemsInCart};
 };
 
-export default connect(mapStateToProps, null)(Header);
+export default connect(mapStateToProps, null)(memo(Header));

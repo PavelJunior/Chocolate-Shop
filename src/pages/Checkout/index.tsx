@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, memo} from 'react';
 import {connect} from 'react-redux';
 import {AppState} from '../../store/configureStore';
 import AddressForm from '../../components/CheckoutFormParts/AddressForm';
@@ -88,4 +88,4 @@ let mapStateToProps = (state: AppState): LinkStateProps => {
   };
 };
 
-export default connect(mapStateToProps, null)(withRouter(Checkout));
+export default connect(mapStateToProps, null)(withRouter(memo(Checkout)));

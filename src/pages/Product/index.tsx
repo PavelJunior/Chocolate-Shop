@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, memo} from 'react';
 
 import Error404 from '../../components/Error404';
 
@@ -136,4 +136,4 @@ let mapDispatchToProps = (
     addNotificationWithTimeout(notification, dispatch),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Product);
+export default connect(mapStateToProps, mapDispatchToProps)(memo(Product));

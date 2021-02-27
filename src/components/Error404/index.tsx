@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {memo} from 'react';
 const Error404: React.FC = () => {
   return (
     <div>
@@ -7,4 +7,4 @@ const Error404: React.FC = () => {
   );
 };
 
-export default Error404;
+export default memo(Error404);

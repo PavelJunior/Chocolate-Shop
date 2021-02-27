@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {memo} from 'react';
 import Typography from '@material-ui/core/Typography';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
@@ -75,7 +75,7 @@ const Review: React.FC<Props> = ({
       total += p.price * p.quantity;
     });
 
-    return `$${total}`;
+    return total.toFixed(2);
   };
 
   const submitOrder = () => {
@@ -95,7 +95,7 @@ const Review: React.FC<Props> = ({
         <ListItem className={classes.listItem}>
           <ListItemText primary="Total" />
           <Typography variant="subtitle1" className={classes.total}>
-            {calculateTotal()}
+            ${calculateTotal()}
           </Typography>
         </ListItem>
       </>
@@ -151,4 +151,4 @@ let mapDispatchToProps = (
   emptyCart: () => dispatch(deleteEverythingFromCart()),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Review);
+export default connect(mapStateToProps, mapDispatchToProps)(memo(Review));

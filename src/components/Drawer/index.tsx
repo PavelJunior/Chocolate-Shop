@@ -8,7 +8,7 @@ import {
   Typography,
 } from '@material-ui/core';
 import {Menu} from '@material-ui/icons';
-import React, {useState} from 'react';
+import React, {useState, memo} from 'react';
 import './styles.css';
 
 interface DrawerProps {
@@ -71,4 +71,4 @@ const SideDrawer: React.FC<DrawerProps> = ({navigationLinks}) => {
   );
 };
 
-export default SideDrawer;
+export default memo(SideDrawer);
