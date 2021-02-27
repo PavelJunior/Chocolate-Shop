@@ -6,70 +6,66 @@ import {AppState} from '../../store/configureStore';
 import {Dispatch} from 'redux';
 import {AppActions} from '../../store/types/actions';
 import {
-  addNotification,
   deleteNotification,
+  addNotificationWithTimeout,
 } from '../../store/actions/notification';
 import {NotificationItem} from '../../store/types/notification';
 import ClearIcon from '@material-ui/icons/Clear';
 
 interface LinkStateProps {
   notifications: NotificationItem[];
-  newId: number;
 }
 
 interface LinkDispatchProps {
-  addNotification: (notification: NotificationItem) => void;
   onDeleteNotification: (id: number) => void;
+  notificationWithTimeout: (notification: NotificationItem) => void;
 }
 
 type Props = LinkDispatchProps & LinkStateProps;
 
-const not = {
-  id: 0,
-  type: 'success',
-  text: 'Product added to the cart successfully!',
-};
-
 const Notification: React.FC<Props> = ({
   notifications,
-  addNotification,
   onDeleteNotification,
-  newId,
+  notificationWithTimeout,
 }) => {
-  const onAddNotification = () => {
-    addNotification(not);
-    setTimeout(() => {
-      onDeleteNotification(newId);
-    }, 5000);
+  const newNotification = {
+    id: new Date().getTime(),
+    type: 'warning',
+    text: 'Product added to the cart successfully!',
+    lifeTime: 2000,
   };
 
   return (
     <div>
       <ul className="notifications">
         {notifications.map((notification) => (
-          <li className="notification" style={{backgroundColor: 'green'}}>
+          <li
+            className={`notification notification-${notification.type}`}
+            key={notification.id}>
             <p className="notification-content">{notification.text}</p>
             <ClearIcon onClick={() => onDeleteNotification(notification.id)} />
           </li>
         ))}
       </ul>
-      <button onClick={() => onAddNotification()}>Add notification</button>
+      <button onClick={() => notificationWithTimeout(newNotification)}>
+        Add notification
+      </button>
     </div>
   );
 };
 
 let mapStateToProps = (state: AppState): LinkStateProps => {
   return {
-    notifications: state.notifications.notifications,
-    newId: state.notifications.id,
+    notifications: state.notifications,
   };
 };
 
 let mapDispatchToProps = (
   dispatch: Dispatch<AppActions>,
 ): LinkDispatchProps => ({
-  addNotification: (notification) => dispatch(addNotification(notification)),
   onDeleteNotification: (id) => dispatch(deleteNotification(id)),
+  notificationWithTimeout: (notification) =>
+    addNotificationWithTimeout(notification, dispatch),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Notification);

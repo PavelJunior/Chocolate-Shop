@@ -1,4 +1,8 @@
-import {AppActions, ADD_NOTIFICATION, DELETE_NOTIFICATION} from '../types/actions';
+import {
+  AppActions,
+  ADD_NOTIFICATION,
+  DELETE_NOTIFICATION,
+} from '../types/actions';
 import {NotificationItem} from '../types/notification';
 
 export const addNotification = (
@@ -8,11 +12,17 @@ export const addNotification = (
   notification: notification,
 });
 
-
-export const deleteNotification = (
-  id: number,
-): AppActions => ({
+export const deleteNotification = (id: number): AppActions => ({
   type: DELETE_NOTIFICATION,
   id: id,
 });
 
+export const addNotificationWithTimeout = (
+  notification: NotificationItem,
+  dispatch: any,
+) => {
+  dispatch(addNotification(notification));
+  setTimeout(() => {
+    dispatch(deleteNotification(notification.id));
+  }, notification.lifeTime);
+};

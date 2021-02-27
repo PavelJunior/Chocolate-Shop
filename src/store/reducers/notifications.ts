@@ -1,4 +1,4 @@
-import {NotificationState} from '../types/notification';
+import {NotificationItem} from '../types/notification';
 import {
   ADD_NOTIFICATION,
   DELETE_NOTIFICATION,
@@ -6,24 +6,21 @@ import {
 } from '../types/actions';
 
 const reducer = (
-  state: NotificationState = initialState,
+  state: NotificationItem[] = initialState,
   action: NotificationActionsTypes,
-): NotificationState => {
+): NotificationItem[] => {
   switch (action.type) {
     case ADD_NOTIFICATION: {
-      let notification = {...action.notification, id: state.id};
-      let newNotifications = [...state.notifications, notification];
-      return {id: (state.id += 1), notifications: newNotifications};
+      let notification = {...action.notification};
+      let newNotifications = [...state, notification];
+      return newNotifications;
     }
 
     case DELETE_NOTIFICATION: {
-      const newNotifications = state.notifications.filter(
-        (i) => i.id !== action.id,
+      const newNotifications = state.filter(
+        (i: NotificationItem) => i.id !== action.id,
       );
-      return {
-        ...state,
-        notifications: newNotifications,
-      };
+      return newNotifications;
     }
 
     default:
@@ -31,9 +28,6 @@ const reducer = (
   }
 };
 
-const initialState: NotificationState = {
-  id: 0,
-  notifications: [],
-};
+const initialState: NotificationItem[] = [];
 
 export default reducer;
