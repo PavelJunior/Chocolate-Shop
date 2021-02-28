@@ -26,6 +26,7 @@
 }
 
 .product-select{
+    min-width: 50px;
     width: 40%;
     margin-right: 5%;
 }
