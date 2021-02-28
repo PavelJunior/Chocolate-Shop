@@ -30,6 +30,11 @@ interface LinkDispatchProps {
   notificationWithTimeout: (notification: NotificationItem) => void;
 }
 
+interface ImageForGallery {
+  original: string;
+  thumbnail: string;
+}
+
 type Props = ProductPageProps & LinkDispatchProps & LinkStateProps;
 
 const Product: React.FC<Props> = ({
@@ -40,20 +45,22 @@ const Product: React.FC<Props> = ({
   notificationWithTimeout,
 }) => {
   const [quantity, setQuantity] = useState<number>(1);
-  const [images, setImages] = useState<any>([]);
+  const [images, setImages] = useState<ImageForGallery[]>([]);
 
   const onSelectChange = (e: any) => {
     setQuantity(e.target.value);
   };
 
   useEffect(() => {
-    const renderedImages = product?.images.map((i) => {
-      return {
-        original: `/images/${i}`,
-        thumbnail: `/images/${i}`,
-      };
-    });
-    setImages(renderedImages);
+    if (product) {
+      const renderedImages = product.images.map((i) => {
+        return {
+          original: `/images/${i}`,
+          thumbnail: `/images/${i}`,
+        };
+      });
+      setImages(renderedImages);
+    }
   }, []);
 
   const selectQuantityOptions = (maxQty: number) => {
