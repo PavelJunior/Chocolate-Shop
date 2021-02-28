@@ -1,6 +1,8 @@
 import React, {memo} from 'react';
+
 import {Link} from 'react-router-dom';
-import {connect} from 'react-redux';
+import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
+import Drawer from '../Drawer';
 import {
   AppBar,
   Container,
@@ -13,10 +15,10 @@ import {
   Badge,
   Typography,
 } from '@material-ui/core';
-import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
-import Drawer from '../Drawer';
-import './styles.css';
+
+import {connect} from 'react-redux';
 import {AppState} from '../../store/configureStore';
+import './styles.css';
 
 interface LinkStateProps {
   itemsInCart?: number;

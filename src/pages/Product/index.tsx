@@ -1,19 +1,22 @@
-import React, {useState, memo} from 'react';
+import React, {useState, memo, useEffect} from 'react';
 
+import ImageGallery from 'react-image-gallery';
 import Error404 from '../../components/Error404';
+import {Select, InputLabel, MenuItem, Button, Grid} from '@material-ui/core';
 
 import {connect} from 'react-redux';
+import {Dispatch} from 'redux';
+
 import {ShopStateProduct} from '../../store/types/shop';
 import {AppState} from '../../store/configureStore';
-import {Dispatch} from 'redux';
 import {AppActions} from '../../store/types/actions';
 import {addToCart} from '../../store/actions/shop';
 import {RouteComponentProps} from './../../routes/types';
-import {Select, InputLabel, MenuItem, Button, Grid} from '@material-ui/core';
-
-import './styles.css';
 import {addNotificationWithTimeout} from '../../store/actions/notification';
 import {NotificationItem} from '../../store/types/notification';
+
+import './styles.css';
+import './image-gallery.css';
 
 interface ProductPageProps extends RouteComponentProps {}
 
@@ -37,14 +40,21 @@ const Product: React.FC<Props> = ({
   notificationWithTimeout,
 }) => {
   const [quantity, setQuantity] = useState<number>(1);
+  const [images, setImages] = useState<any>([]);
 
   const onSelectChange = (e: any) => {
     setQuantity(e.target.value);
   };
 
-  const images = product?.images.map((i) => {
-    return <img src={`/images/${i}`} className="product-image" />;
-  });
+  useEffect(() => {
+    const renderedImages = product?.images.map((i) => {
+      return {
+        original: `/images/${i}`,
+        thumbnail: `/images/${i}`,
+      };
+    });
+    setImages(renderedImages);
+  }, []);
 
   const selectQuantityOptions = (maxQty: number) => {
     let option = [];
@@ -89,7 +99,11 @@ const Product: React.FC<Props> = ({
   ) : (
     <Grid container className="product" spacing={3}>
       <Grid item md={8} sm={6} xs={12} className="product-images">
-        {images}
+        <ImageGallery
+          items={images}
+          showFullscreenButton={false}
+          showPlayButton={false}
+        />
       </Grid>
       <Grid item md={4} sm={6} xs={12} className="product-content">
         <h2>{product.name}</h2>

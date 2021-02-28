@@ -1,5 +1,7 @@
 import React, {memo} from 'react';
 
+import {Link} from 'react-router-dom';
+import ClearIcon from '@material-ui/icons/Clear';
 import {
   Table,
   TableBody,
@@ -14,14 +16,14 @@ import {
 } from '@material-ui/core';
 
 import {connect} from 'react-redux';
+import {Dispatch} from 'redux';
+
 import {ShopStateCartItem} from '../../store/types/shop';
 import {AppState} from '../../store/configureStore';
-import {Dispatch} from 'redux';
 import {AppActions} from '../../store/types/actions';
 import {removeFromCart, changeQuantityInCart} from '../../store/actions/shop';
 import {RouteComponentProps} from './../../routes/types';
-import {Link} from 'react-router-dom';
-import ClearIcon from '@material-ui/icons/Clear';
+
 import './styles.css';
 
 interface CartPageProps extends RouteComponentProps {}

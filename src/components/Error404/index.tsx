@@ -1,4 +1,5 @@
 import React, {memo} from 'react';
+
 const Error404: React.FC = () => {
   return (
     <div>

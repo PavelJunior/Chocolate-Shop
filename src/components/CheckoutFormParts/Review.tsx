@@ -1,18 +1,25 @@
 import React, {memo} from 'react';
-import Typography from '@material-ui/core/Typography';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
-import Grid from '@material-ui/core/Grid';
-import {ChangeCheckoutStep, CheckoutForm} from '../../store/types/checkout';
-import {AppState} from '../../store/configureStore';
+
+import {
+  Button,
+  Grid,
+  Typography,
+  TextField,
+  List,
+  ListItem,
+  ListItemText,
+} from '@material-ui/core';
+
 import {Dispatch} from 'redux';
+import {connect} from 'react-redux';
+
 import {AppActions} from '../../store/types/actions';
 import {changeStepValue} from '../../store/actions/checkout';
 import {deleteEverythingFromCart} from '../../store/actions/shop';
-import {connect} from 'react-redux';
+import {ChangeCheckoutStep, CheckoutForm} from '../../store/types/checkout';
+import {AppState} from '../../store/configureStore';
 import {ShopStateCartItem} from '../../store/types/shop';
-import {Button} from '@material-ui/core';
+
 import {useStyles} from './styles';
 
 interface LinkStateProps {

@@ -1,7 +1,6 @@
 import React, {useState, memo} from 'react';
-
-import './styles.css';
 import {Card, CardHeader, CardMedia} from '@material-ui/core';
+import './styles.css';
 
 interface HomeItemProps {
   price: number;

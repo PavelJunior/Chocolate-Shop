@@ -1,13 +1,17 @@
 import React from 'react';
-import './styles.css';
+
+import ClearIcon from '@material-ui/icons/Clear';
+import {CSSTransition, TransitionGroup} from 'react-transition-group';
+
 import {connect} from 'react-redux';
-import {AppState} from '../../store/configureStore';
 import {Dispatch} from 'redux';
+
+import {AppState} from '../../store/configureStore';
 import {AppActions} from '../../store/types/actions';
 import {deleteNotification} from '../../store/actions/notification';
 import {NotificationItem} from '../../store/types/notification';
-import ClearIcon from '@material-ui/icons/Clear';
-import {CSSTransition, TransitionGroup} from 'react-transition-group';
+
+import './styles.css';
 
 interface LinkStateProps {
   notifications: NotificationItem[];

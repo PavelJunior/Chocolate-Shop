@@ -1,18 +1,24 @@
 import React, {useEffect, memo} from 'react';
-import {connect} from 'react-redux';
-import {AppState} from '../../store/configureStore';
+
 import AddressForm from '../../components/CheckoutFormParts/AddressForm';
 import PaymentForm from '../../components/CheckoutFormParts/PaymentForm';
 import Review from '../../components/CheckoutFormParts/Review';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import Paper from '@material-ui/core/Paper';
-import Stepper from '@material-ui/core/Stepper';
-import Step from '@material-ui/core/Step';
-import StepLabel from '@material-ui/core/StepLabel';
-import Typography from '@material-ui/core/Typography';
-import {useStyles} from './styles';
+import {
+  Typography,
+  StepLabel,
+  Step,
+  Stepper,
+  Paper,
+  CssBaseline,
+} from '@material-ui/core';
+
+import {connect} from 'react-redux';
 import {withRouter} from 'react-router';
+
+import {AppState} from '../../store/configureStore';
 import {RouteComponentProps} from '../../routes/types';
+
+import {useStyles} from './styles';
 
 interface CheckoutPageProps extends RouteComponentProps {}
 

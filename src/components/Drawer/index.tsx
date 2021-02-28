@@ -1,3 +1,5 @@
+import React, {useState, memo} from 'react';
+
 import {Link} from 'react-router-dom';
 import {
   IconButton,
@@ -8,7 +10,7 @@ import {
   Typography,
 } from '@material-ui/core';
 import {Menu} from '@material-ui/icons';
-import React, {useState, memo} from 'react';
+
 import './styles.css';
 
 interface DrawerProps {

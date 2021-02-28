@@ -3,6 +3,7 @@ import React, {memo} from 'react';
 import HomeItem from '../../components/HomeItem';
 import {Grid} from '@material-ui/core';
 import {Link} from 'react-router-dom';
+
 import {connect} from 'react-redux';
 
 import {RouteComponentProps} from '../../routes/types';

@@ -1,20 +1,21 @@
 import React, {memo} from 'react';
-import Typography from '@material-ui/core/Typography';
-import Grid from '@material-ui/core/Grid';
-import TextField from '@material-ui/core/TextField';
-import {Button} from '@material-ui/core';
+
+import {Button, Grid, Typography, TextField} from '@material-ui/core';
+import {useFormik} from 'formik';
+import * as Yup from 'yup';
+
+import {Dispatch} from 'redux';
+import {connect} from 'react-redux';
+
+import {AppState} from '../../store/configureStore';
+import {AppActions} from '../../store/types/actions';
+import {changeFormValues, changeStepValue} from '../../store/actions/checkout';
 import {
   ChangeCheckoutStep,
   ChangeFormValues,
   CheckoutForm,
 } from '../../store/types/checkout';
-import {useFormik} from 'formik';
-import * as Yup from 'yup';
-import {AppState} from '../../store/configureStore';
-import {Dispatch} from 'redux';
-import {AppActions} from '../../store/types/actions';
-import {changeFormValues, changeStepValue} from '../../store/actions/checkout';
-import {connect} from 'react-redux';
+
 import {useStyles} from './styles';
 
 const validationSchema = Yup.object().shape({
