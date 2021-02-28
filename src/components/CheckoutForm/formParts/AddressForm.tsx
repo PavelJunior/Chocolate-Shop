@@ -7,16 +7,19 @@ import {Button, Grid, Typography, TextField} from '@material-ui/core';
 import {Dispatch} from 'redux';
 import {connect} from 'react-redux';
 
-import {AppActions} from '../../store/types/actions';
-import {changeFormValues, changeStepValue} from '../../store/actions/checkout';
-import {AppState} from '../../store/configureStore';
+import {AppActions} from '../../../store/types/actions';
+import {
+  changeFormValues,
+  changeStepValue,
+} from '../../../store/actions/checkout';
+import {AppState} from '../../../store/configureStore';
 import {
   ChangeCheckoutStep,
   ChangeFormValues,
   CheckoutForm,
-} from '../../store/types/checkout';
+} from '../../../store/types/checkout';
 
-import {useStyles} from './styles';
+import {useStyles} from '../styles';
 
 const validationSchema = Yup.object().shape({
   firstName: Yup.string()

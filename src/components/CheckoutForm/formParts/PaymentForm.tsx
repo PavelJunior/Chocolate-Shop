@@ -7,16 +7,19 @@ import * as Yup from 'yup';
 import {Dispatch} from 'redux';
 import {connect} from 'react-redux';
 
-import {AppState} from '../../store/configureStore';
-import {AppActions} from '../../store/types/actions';
-import {changeFormValues, changeStepValue} from '../../store/actions/checkout';
+import {AppState} from '../../../store/configureStore';
+import {AppActions} from '../../../store/types/actions';
+import {
+  changeFormValues,
+  changeStepValue,
+} from '../../../store/actions/checkout';
 import {
   ChangeCheckoutStep,
   ChangeFormValues,
   CheckoutForm,
-} from '../../store/types/checkout';
+} from '../../../store/types/checkout';
 
-import {useStyles} from './styles';
+import {useStyles} from '../styles';
 
 const validationSchema = Yup.object().shape({
   nameOnCard: Yup.string().min(4, 'Too Short!').required('Required'),

@@ -26,4 +26,21 @@ export const useStyles = makeStyles((theme) => ({
     backgroundColor: '#f8f8f4',
     padding: theme.spacing(3, 0, 5),
   },
+  buttons: {
+    display: 'flex',
+    justifyContent: 'flex-end',
+  },
+  button: {
+    marginTop: theme.spacing(3),
+    marginLeft: theme.spacing(1),
+  },
+  listItem: {
+    padding: theme.spacing(1, 0),
+  },
+  total: {
+    fontWeight: 700,
+  },
+  title: {
+    marginTop: theme.spacing(2),
+  },
 }));
