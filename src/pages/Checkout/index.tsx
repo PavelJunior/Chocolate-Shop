@@ -52,7 +52,10 @@ const Checkout: React.FC<Props> = ({step, cart, history}) => {
       <CssBaseline />
       <main className={classes.layout}>
         <Paper className={classes.paper}>
-          <Stepper activeStep={step} className={classes.stepper}>
+          <Stepper
+            activeStep={step}
+            className={classes.stepper}
+            alternativeLabel>
             {steps.map((label) => (
               <Step key={label}>
                 <StepLabel>{label}</StepLabel>

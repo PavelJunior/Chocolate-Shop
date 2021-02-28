@@ -22,7 +22,7 @@ type Props = HomePageProps & LinkStateProps;
 const Home: React.FC<Props> = (props) => {
   const items = props.products.map((item) => {
     return (
-      <Grid item xs={12} sm={6} md={4} key={item.id} className="item-grid">
+      <Grid item xs={12} sm={6} md={4} key={item.id}>
         <Link to={`product/${item.id}`} className="home-item-link">
           <HomeItem name={item.name} images={item.images} price={item.price} />
         </Link>

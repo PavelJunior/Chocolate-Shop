@@ -9,7 +9,7 @@ import {Dispatch} from 'redux';
 import {AppActions} from '../../store/types/actions';
 import {addToCart} from '../../store/actions/shop';
 import {RouteComponentProps} from './../../routes/types';
-import {Select, InputLabel, MenuItem, Button} from '@material-ui/core';
+import {Select, InputLabel, MenuItem, Button, Grid} from '@material-ui/core';
 
 import './styles.css';
 import {addNotificationWithTimeout} from '../../store/actions/notification';
@@ -87,9 +87,11 @@ const Product: React.FC<Props> = ({
   return product === undefined ? (
     <Error404 />
   ) : (
-    <div className="product">
-      <div className="product-images">{images}</div>
-      <div className="product-content">
+    <Grid container className="product" spacing={3}>
+      <Grid item md={8} sm={6} xs={12} className="product-images">
+        {images}
+      </Grid>
+      <Grid item md={4} sm={6} xs={12} className="product-content">
         <h2>{product.name}</h2>
         <h3>${product.price}</h3>
         <div dangerouslySetInnerHTML={{__html: product.description}} />
@@ -105,8 +107,8 @@ const Product: React.FC<Props> = ({
         <Button variant="contained" onClick={() => onAddToCartClick()}>
           Add To Cart
         </Button>
-      </div>
-    </div>
+      </Grid>
+    </Grid>
   );
 };
 

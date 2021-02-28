@@ -37,3 +37,21 @@
     color: dimgray;
 }
 
+@media (max-width: 600px){
+    .cart-image {
+        margin-top: 10px;
+        margin-right: 0;
+        max-width: 80px;
+    }
+    .cart-table *{
+        padding: 0;
+        text-align: center;
+    }
+    .cart-product-cell{
+        flex-direction: column;
+        justify-content: center;
+    }
+    .cart-table .product-select{
+        width: 50px;
+    }
+}
