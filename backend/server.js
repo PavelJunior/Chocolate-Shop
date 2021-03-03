@@ -1,4 +1,4 @@
-require('dotenv').config();
+require('dotenv').config({path: __dirname + '/.env'});
 const express = require('express');
 const connectDB = require('./config/db');
 const productRoutes = require('./routes/productRoutes');
@@ -11,6 +11,6 @@ app.use(express.json());
 
 app.use('/api/products', productRoutes);
 
-const PORT = process.env.PORT || 5030;
+const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => console.log('Server is running'));

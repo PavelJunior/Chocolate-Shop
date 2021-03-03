@@ -5,12 +5,20 @@ const productSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  description: {
+    type: String,
+    required: true,
+  },
+  maximumQuantity: {
+    type: Number,
+    required: true,
+  },
   price: {
     type: Number,
     required: true,
   },
-  imageUrl: {
-    type: String,
+  images: {
+    type: [String],
     required: true,
   },
 });

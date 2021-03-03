@@ -1,4 +1,5 @@
 import {
+  FETCH_PRODUCTS,
   ADD_PRODUCT_TO_CART,
   AppActions,
   CHANGE_QUANTITY_IN_CART,
@@ -7,6 +8,9 @@ import {
   INCREMENT_PRODUCT_IN_CART,
   REMOVE_PRODUCT_FROM_CART,
 } from './../types/actions';
+import axios from 'axios';
+import {Dispatch} from 'redux';
+import {ThunkAction} from 'redux-thunk';
 
 export const addToCart = (id: number, quantity: number): AppActions => ({
   type: ADD_PRODUCT_TO_CART,
@@ -41,3 +45,15 @@ export const changeQuantityInCart = (
 export const deleteEverythingFromCart = (): AppActions => ({
   type: DELETE_EVERYTHING_FROM_CART,
 });
+
+export const fetchProducts = (): ThunkAction<
+  Promise<void>,
+  any,
+  any,
+  AppActions
+> => {
+  return async (dispatch: Dispatch<AppActions>): Promise<void> => {
+    const {data} = await axios.get('/api/products');
+    dispatch({type: FETCH_PRODUCTS, products: data});
+  };
+};

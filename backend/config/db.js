@@ -1,4 +1,4 @@
-require('dotenv').config();
+require('dotenv').config({path: __dirname + '/../.env'});
 const mongoose = require('mongoose');
 
 const connectDB = async () => {
@@ -10,6 +10,7 @@ const connectDB = async () => {
 
     console.log('MongoDB connection success');
   } catch (error) {
+    console.log(process.env.MONGO_URI);
     console.error('MongoDB connection fail');
     process.exit(1);
   }
