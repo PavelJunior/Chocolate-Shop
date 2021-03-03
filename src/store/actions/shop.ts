@@ -12,29 +12,29 @@ import axios from 'axios';
 import {Dispatch} from 'redux';
 import {ThunkAction} from 'redux-thunk';
 
-export const addToCart = (id: number, quantity: number): AppActions => ({
+export const addToCart = (id: string, quantity: number): AppActions => ({
   type: ADD_PRODUCT_TO_CART,
   id: id,
   quantity: quantity,
 });
 
-export const removeFromCart = (id: number): AppActions => ({
+export const removeFromCart = (id: string): AppActions => ({
   type: REMOVE_PRODUCT_FROM_CART,
   id: id,
 });
 
-export const incrementInCart = (id: number): AppActions => ({
+export const incrementInCart = (id: string): AppActions => ({
   type: INCREMENT_PRODUCT_IN_CART,
   id: id,
 });
 
-export const decrementInCart = (id: number): AppActions => ({
+export const decrementInCart = (id: string): AppActions => ({
   type: DECREMENT_PRODUCT_IN_CART,
   id: id,
 });
 
 export const changeQuantityInCart = (
-  id: number,
+  id: string,
   quantity: number,
 ): AppActions => ({
   type: CHANGE_QUANTITY_IN_CART,
@@ -54,6 +54,8 @@ export const fetchProducts = (): ThunkAction<
 > => {
   return async (dispatch: Dispatch<AppActions>): Promise<void> => {
     const {data} = await axios.get('/api/products');
+    console.log(data);
+
     dispatch({type: FETCH_PRODUCTS, products: data});
   };
 };

@@ -26,7 +26,7 @@ interface LinkStateProps {
 }
 
 interface LinkDispatchProps {
-  onAddToCart: (id: number, quantity: number) => void;
+  onAddToCart: (id: string, quantity: number) => void;
   notificationWithTimeout: (notification: NotificationItem) => void;
 }
 
@@ -91,7 +91,7 @@ const Product: React.FC<Props> = ({
   };
 
   const onAddToCartClick = () => {
-    onAddToCart(parseInt(match.params.id), quantity);
+    onAddToCart(match.params.id, quantity);
     if (product === undefined) return;
 
     if (quantityInCart + quantity > product.maximumQuantity) {
@@ -138,10 +138,10 @@ let mapStateToProps = (
   ownProps: RouteComponentProps,
 ): LinkStateProps => {
   const product = state.shop.products.find(
-    (product) => product.id === parseInt(ownProps.match.params.id),
+    (product) => product.id === ownProps.match.params.id,
   );
   const itemInCart = state.shop.cart.find(
-    (product) => product.id === parseInt(ownProps.match.params.id),
+    (product) => product.id === ownProps.match.params.id,
   );
   const quantityInCart = itemInCart ? itemInCart.quantity : 0;
 

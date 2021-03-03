@@ -17,8 +17,8 @@ interface LinkStateProps {
 }
 
 interface LinkDispatchProps {
-  changeQuantityInCart: (id: number, quantity: number) => void;
-  onRemoveFromCart: (id: number) => void;
+  changeQuantityInCart: (id: string, quantity: number) => void;
+  onRemoveFromCart: (id: string) => void;
 }
 
 type Props = LinkDispatchProps & LinkStateProps;
@@ -28,7 +28,7 @@ const CartItem: React.FC<Props> = ({
   onRemoveFromCart,
   changeQuantityInCart,
 }) => {
-  const onChangeQuantityInCart = (id: number, value: any) => {
+  const onChangeQuantityInCart = (id: string, value: any) => {
     changeQuantityInCart(id, parseInt(value));
   };
 

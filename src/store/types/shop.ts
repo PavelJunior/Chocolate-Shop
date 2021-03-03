@@ -4,7 +4,7 @@ export interface ShopState {
 }
 
 export type ShopStateProduct = {
-  id: number;
+  id: string;
   price: number;
   name: string;
   description: string;
@@ -13,7 +13,7 @@ export type ShopStateProduct = {
 };
 
 export type ShopStateCartItem = {
-  id: number;
+  id: string;
   price: number;
   name: string;
   description: string;

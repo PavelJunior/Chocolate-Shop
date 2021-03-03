@@ -12,28 +12,28 @@ export const DELETE_EVERYTHING_FROM_CART = 'DELETE_EVERYTHING_FROM_CART';
 
 interface AddProductToCartAction {
   type: typeof ADD_PRODUCT_TO_CART;
-  id: number;
+  id: string;
   quantity: number;
 }
 
 interface RemoveProductFromCartAction {
   type: typeof REMOVE_PRODUCT_FROM_CART;
-  id: number;
+  id: string;
 }
 
 interface IncrementProductAction {
   type: typeof INCREMENT_PRODUCT_IN_CART;
-  id: number;
+  id: string;
 }
 
 interface DecrementProductAction {
   type: typeof DECREMENT_PRODUCT_IN_CART;
-  id: number;
+  id: string;
 }
 
 interface ChangeQuantityOfProduct {
   type: typeof CHANGE_QUANTITY_IN_CART;
-  id: number;
+  id: string;
   quantity: number;
 }
 
