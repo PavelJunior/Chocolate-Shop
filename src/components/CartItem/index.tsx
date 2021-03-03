@@ -11,6 +11,7 @@ import {AppActions} from '../../store/types/actions';
 import {removeFromCart, changeQuantityInCart} from '../../store/actions/shop';
 
 import './styles.css';
+import {ThunkDispatch} from 'redux-thunk';
 
 interface LinkStateProps {
   item: ShopStateCartItem;
@@ -79,7 +80,7 @@ const CartItem: React.FC<Props> = ({
 };
 
 let mapDispatchToProps = (
-  dispatch: Dispatch<AppActions>,
+  dispatch: ThunkDispatch<any, any, AppActions>,
 ): LinkDispatchProps => ({
   changeQuantityInCart: (id, quantity) =>
     dispatch(changeQuantityInCart(id, quantity)),

@@ -17,6 +17,7 @@ import {NotificationItem} from '../../store/types/notification';
 
 import './styles.css';
 import './image-gallery.css';
+import {ThunkDispatch} from 'redux-thunk';
 
 interface ProductPageProps extends RouteComponentProps {}
 
@@ -152,7 +153,7 @@ let mapStateToProps = (
 };
 
 let mapDispatchToProps = (
-  dispatch: Dispatch<AppActions>,
+  dispatch: ThunkDispatch<any, any, AppActions>,
 ): LinkDispatchProps => ({
   onAddToCart: (id, quantity) => dispatch(addToCart(id, quantity)),
   notificationWithTimeout: (notification) =>

@@ -2,10 +2,9 @@ import {ShopState, ShopStateCartItem, ShopStateProduct} from '../types/shop';
 import {
   ADD_PRODUCT_TO_CART,
   CHANGE_QUANTITY_IN_CART,
-  DECREMENT_PRODUCT_IN_CART,
   DELETE_EVERYTHING_FROM_CART,
   FETCH_PRODUCTS,
-  INCREMENT_PRODUCT_IN_CART,
+  LOAD_CART,
   REMOVE_PRODUCT_FROM_CART,
   ShopActionTypes,
 } from '../types/actions';
@@ -61,36 +60,6 @@ const reducer = (
       return {...state, cart: updatedCart};
     }
 
-    case INCREMENT_PRODUCT_IN_CART: {
-      let updatedCart = [...state.cart];
-      let indexToUpdate = updatedCart.findIndex((i) => i.id === action.id);
-      let processingItem = updatedCart[indexToUpdate];
-      if (processingItem === undefined) return state;
-      const newQty = getNewQty(
-        processingItem.maximumQuantity,
-        processingItem.quantity,
-        1,
-      );
-      let itemToUpdate = {...processingItem, quantity: newQty};
-      updatedCart[indexToUpdate] = itemToUpdate;
-      return {...state, cart: updatedCart};
-    }
-
-    case DECREMENT_PRODUCT_IN_CART: {
-      let updatedCart = [...state.cart];
-      let indexToUpdate = updatedCart.findIndex((i) => i.id === action.id);
-      let processingItem = updatedCart[indexToUpdate];
-      if (processingItem === undefined) return state;
-      const newQty = getNewQty(
-        processingItem.maximumQuantity,
-        processingItem.quantity,
-        -1,
-      );
-      let itemToUpdate = {...processingItem, quantity: newQty};
-      updatedCart[indexToUpdate] = itemToUpdate;
-      return {...state, cart: updatedCart};
-    }
-
     case CHANGE_QUANTITY_IN_CART: {
       let updatedCart = [...state.cart];
       let indexToUpdate = updatedCart.findIndex((i) => i.id === action.id);
@@ -104,6 +73,10 @@ const reducer = (
       let itemToUpdate = {...processingItem, quantity: newQty};
       updatedCart[indexToUpdate] = itemToUpdate;
       return {...state, cart: updatedCart};
+    }
+
+    case LOAD_CART: {
+      return {...state, cart: action.cart};
     }
 
     case DELETE_EVERYTHING_FROM_CART: {

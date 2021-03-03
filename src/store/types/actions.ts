@@ -1,12 +1,11 @@
 import {CheckoutForm} from './../types/checkout';
 import {NotificationItem} from '../types/notification';
-import {ShopStateProduct} from './shop';
+import {ShopStateCartItem, ShopStateProduct} from './shop';
 
 export const FETCH_PRODUCTS = 'FETCH_PRODUCTS';
+export const LOAD_CART = 'LOAD_CART';
 export const ADD_PRODUCT_TO_CART = 'ADD_PRODUCT_TO_CART';
 export const REMOVE_PRODUCT_FROM_CART = 'REMOVE_PRODUCT_FROM_CART';
-export const INCREMENT_PRODUCT_IN_CART = 'INCREMENT_PRODUCT_IN_CART';
-export const DECREMENT_PRODUCT_IN_CART = 'DECREMENT_PRODUCT_IN_CART';
 export const CHANGE_QUANTITY_IN_CART = 'CHANGE_QUANTITY_IN_CART';
 export const DELETE_EVERYTHING_FROM_CART = 'DELETE_EVERYTHING_FROM_CART';
 
@@ -18,16 +17,6 @@ interface AddProductToCartAction {
 
 interface RemoveProductFromCartAction {
   type: typeof REMOVE_PRODUCT_FROM_CART;
-  id: string;
-}
-
-interface IncrementProductAction {
-  type: typeof INCREMENT_PRODUCT_IN_CART;
-  id: string;
-}
-
-interface DecrementProductAction {
-  type: typeof DECREMENT_PRODUCT_IN_CART;
   id: string;
 }
 
@@ -44,6 +33,11 @@ interface DeleteEverythingFromCart {
 interface FetchProducts {
   type: typeof FETCH_PRODUCTS;
   products: ShopStateProduct[];
+}
+
+interface LoadCart {
+  type: typeof LOAD_CART;
+  cart: ShopStateCartItem[];
 }
 
 export const CHECKOUT_CHANGE_FORM_VALUES = 'CHECKOUT_CHANGE_FORM_VALUES';
@@ -75,11 +69,10 @@ interface DeleteNotification {
 export type ShopActionTypes =
   | AddProductToCartAction
   | RemoveProductFromCartAction
-  | IncrementProductAction
-  | DecrementProductAction
   | ChangeQuantityOfProduct
   | DeleteEverythingFromCart
-  | FetchProducts;
+  | FetchProducts
+  | LoadCart;
 
 export type CheckoutActionsTypes = ChangeFormValues | ChangeStepValue;
 
