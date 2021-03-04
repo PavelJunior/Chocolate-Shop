@@ -1,4 +1,4 @@
-import React, {memo, useEffect} from 'react';
+import React, {memo, useEffect, useState} from 'react';
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 import Header from '../components/Header';
 import Notifications from '../components/Notifications';
@@ -13,6 +13,7 @@ import {connect} from 'react-redux';
 import {AppActions} from '../store/types/actions';
 import {ThunkDispatch} from 'redux-thunk';
 import {ShopStateCartItem} from '../store/types/shop';
+import Error500 from '../components/Error500';
 
 interface LinkDispatchProps {
   getProducts: () => void;
@@ -20,8 +21,21 @@ interface LinkDispatchProps {
 }
 
 const App: React.FC<LinkDispatchProps> = ({getProducts, getCart}) => {
+  const [dataLoaded, setDataLoaded] = useState<boolean>(false);
+  const [loadError, setLoadError] = useState<boolean>(false);
+
   useEffect(() => {
-    getProducts();
+    const loadProducts = async () => {
+      try {
+        await getProducts();
+        setDataLoaded(true);
+      } catch (error) {
+        console.log(error);
+        setLoadError(true);
+      }
+    };
+    loadProducts();
+
     const shoppingCart = localStorage.getItem('shoppingCart');
     if (shoppingCart) {
       getCart(JSON.parse(shoppingCart));
@@ -44,9 +58,12 @@ const App: React.FC<LinkDispatchProps> = ({getProducts, getCart}) => {
       <Header />
       <Notifications />
       <ScrollToTop />
-      <Container>
-        <Switch>{routeComponent}</Switch>
-      </Container>
+      {dataLoaded && (
+        <Container>
+          <Switch>{routeComponent}</Switch>
+        </Container>
+      )}
+      {loadError && <Error500 />}
     </Router>
   );
 };
