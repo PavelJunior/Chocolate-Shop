@@ -1,6 +1,6 @@
 import React, {memo} from 'react';
 
-import {Button, Typography, TextField} from '@material-ui/core';
+import {Button, Typography} from '@material-ui/core';
 
 import {Dispatch} from 'redux';
 import {connect} from 'react-redux';
@@ -8,6 +8,7 @@ import {connect} from 'react-redux';
 import {AppState} from '../../../store/configureStore';
 import {AppActions} from '../../../store/types/actions';
 import {changeStepValue} from '../../../store/actions/checkout';
+import {deleteEverythingFromCart} from '../../../store/actions/shop';
 import {ChangeCheckoutStep, CheckoutForm} from '../../../store/types/checkout';
 
 import {useStyles} from '../styles';
@@ -15,6 +16,8 @@ import {useStyles} from '../styles';
 import {CardElement, useStripe, useElements} from '@stripe/react-stripe-js';
 import axios from 'axios';
 import {ShopStateCartItem} from '../../../store/types/shop';
+import {RouteComponentProps} from '../../../routes/types';
+import {withRouter} from 'react-router';
 
 interface LinkStateProps {
   form: CheckoutForm;
@@ -23,11 +26,20 @@ interface LinkStateProps {
 
 interface LinkDispatchProps {
   onCheckoutStepChange: ChangeCheckoutStep;
+  emptyCart: () => void;
 }
 
-type Props = LinkDispatchProps & LinkStateProps;
+interface StripeFormProps extends RouteComponentProps {}
 
-const StripeForm: React.FC<Props> = ({form, cart, onCheckoutStepChange}) => {
+type Props = LinkDispatchProps & LinkStateProps & StripeFormProps;
+
+const StripeForm: React.FC<Props> = ({
+  form,
+  cart,
+  history,
+  onCheckoutStepChange,
+  emptyCart,
+}) => {
   const classes = useStyles();
   const stripe = useStripe();
   const elements = useElements();
@@ -87,7 +99,9 @@ const StripeForm: React.FC<Props> = ({form, cart, onCheckoutStepChange}) => {
       const order = await axios.post('/api/order', orderPayload);
 
       if (order.status === 200) {
-        onCheckoutStepChange(3);
+        emptyCart();
+        onCheckoutStepChange(0);
+        history.push('/order-success', {orderNumber: order.data._id});
       }
     } catch (er) {
       console.log(er);
@@ -101,7 +115,11 @@ const StripeForm: React.FC<Props> = ({form, cart, onCheckoutStepChange}) => {
       </Typography>
       <CardElement className={classes.checkoutCardInput} />
       <div className={classes.buttons}>
-        <Button className={classes.button}>Back</Button>
+        <Button
+          className={classes.button}
+          onClick={() => onCheckoutStepChange(1)}>
+          Back
+        </Button>
         <Button
           variant="contained"
           color="primary"
@@ -126,6 +144,10 @@ let mapDispatchToProps = (
   dispatch: Dispatch<AppActions>,
 ): LinkDispatchProps => ({
   onCheckoutStepChange: (step) => dispatch(changeStepValue(step)),
+  emptyCart: () => dispatch(deleteEverythingFromCart()),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(memo(StripeForm));
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(withRouter(memo(StripeForm)));

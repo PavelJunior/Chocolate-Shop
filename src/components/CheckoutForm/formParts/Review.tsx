@@ -29,17 +29,11 @@ interface LinkStateProps {
 
 interface LinkDispatchProps {
   onCheckoutStepChange: ChangeCheckoutStep;
-  emptyCart: () => void;
 }
 
 type Props = LinkDispatchProps & LinkStateProps;
 
-const Review: React.FC<Props> = ({
-  form,
-  cart,
-  onCheckoutStepChange,
-  emptyCart,
-}) => {
+const Review: React.FC<Props> = ({form, cart, onCheckoutStepChange}) => {
   const classes = useStyles();
 
   const fullAddressString = () => {
@@ -67,7 +61,6 @@ const Review: React.FC<Props> = ({
 
   const submitOrder = () => {
     onCheckoutStepChange(2);
-    emptyCart();
   };
 
   const productsInfo = () => {
@@ -133,7 +126,6 @@ let mapDispatchToProps = (
   dispatch: Dispatch<AppActions>,
 ): LinkDispatchProps => ({
   onCheckoutStepChange: (step) => dispatch(changeStepValue(step)),
-  emptyCart: () => dispatch(deleteEverythingFromCart()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(memo(Review));
