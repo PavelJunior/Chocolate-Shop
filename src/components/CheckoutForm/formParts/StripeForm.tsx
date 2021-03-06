@@ -20,9 +20,12 @@ import {
 import {useStyles} from '../styles';
 
 import {CardElement, useStripe, useElements} from '@stripe/react-stripe-js';
+import axios from 'axios';
+import {ShopStateCartItem} from '../../../store/types/shop';
 
 interface LinkStateProps {
   form: CheckoutForm;
+  cart: ShopStateCartItem[];
 }
 
 interface LinkDispatchProps {
@@ -34,6 +37,7 @@ type Props = LinkDispatchProps & LinkStateProps;
 
 const StripeForm: React.FC<Props> = ({
   form,
+  cart,
   onCheckoutFormChange,
   onCheckoutStepChange,
 }) => {
@@ -42,13 +46,27 @@ const StripeForm: React.FC<Props> = ({
   const elements = useElements();
 
   const handleSubmit = async () => {
-    if (stripe && elements) {
-      const {error, paymentMethod} = await stripe.createPaymentMethod({
+    try {
+      const {paymentMethod} = await stripe!.createPaymentMethod({
         type: 'card',
-        card: elements.getElement(CardElement)!,
+        card: elements!.getElement(CardElement)!,
       });
 
-      console.log(error, paymentMethod);
+      const cartTotal: number = cart.reduce<number>((sum, item) => {
+        return sum + item.quantity * item.price;
+      }, 0);
+
+      const paymentPayload = {
+        payment_method_id: paymentMethod?.id,
+        amount: cartTotal,
+      };
+
+      const payment = await axios.post('/api/payment', paymentPayload);
+
+      console.log(payment);
+      console.log(payment.data.charges.data[0].id);
+    } catch (er) {
+      console.log(er);
     }
   };
 
@@ -76,6 +94,7 @@ const StripeForm: React.FC<Props> = ({
 let mapStateToProps = (state: AppState): LinkStateProps => {
   return {
     form: state.checkout.form,
+    cart: state.shop.cart,
   };
 };
 
