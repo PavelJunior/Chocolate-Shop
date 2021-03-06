@@ -27,6 +27,12 @@ export const useStyles = makeStyles((theme) => ({
     marginTop: '20px',
     borderBottom: '1px solid black',
   },
+  circularProgress: {
+    color: 'white',
+  },
+  payButton: {
+    minWidth: '100px',
+  },
   stepper: {
     backgroundColor: '#f8f8f4',
     padding: theme.spacing(3, 0, 5),

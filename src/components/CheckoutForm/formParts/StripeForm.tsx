@@ -1,6 +1,6 @@
-import React, {memo} from 'react';
+import React, {memo, useState} from 'react';
 
-import {Button, Typography} from '@material-ui/core';
+import {Button, Typography, CircularProgress} from '@material-ui/core';
 
 import {Dispatch} from 'redux';
 import {connect} from 'react-redux';
@@ -11,8 +11,6 @@ import {changeStepValue} from '../../../store/actions/checkout';
 import {deleteEverythingFromCart} from '../../../store/actions/shop';
 import {ChangeCheckoutStep, CheckoutForm} from '../../../store/types/checkout';
 
-import {useStyles} from '../styles';
-
 import {CardElement, useStripe, useElements} from '@stripe/react-stripe-js';
 import axios from 'axios';
 import {paymentErrorNotification} from '../../PrebuiltNotifications';
@@ -21,6 +19,8 @@ import {RouteComponentProps} from '../../../routes/types';
 import {withRouter} from 'react-router';
 import {addNotificationWithTimeout} from '../../../store/actions/notification';
 import {NotificationItem} from '../../../store/types/notification';
+
+import {useStyles} from '../styles';
 
 interface LinkStateProps {
   form: CheckoutForm;
@@ -48,11 +48,16 @@ const StripeForm: React.FC<Props> = ({
   const classes = useStyles();
   const stripe = useStripe();
   const elements = useElements();
+  const [disablePaymentButton, setDisablePaymentButton] = useState<boolean>(
+    false,
+  );
 
   const handleSubmit = async () => {
+    setDisablePaymentButton(true);
     try {
       const billingDetails = getPaymentMethodBillingDetails();
 
+      console.log(elements!.getElement(CardElement));
       const {paymentMethod} = await stripe!.createPaymentMethod({
         type: 'card',
         card: elements!.getElement(CardElement)!,
@@ -65,12 +70,14 @@ const StripeForm: React.FC<Props> = ({
       const orderPayload = getOrderPayload(payment.data.charges.data[0].id);
       const order = await axios.post('/api/order', orderPayload);
 
+      setDisablePaymentButton(false);
       if (order.status === 200) {
         emptyCart();
         onCheckoutStepChange(0);
         history.push('/order-success', {orderNumber: order.data._id});
       }
     } catch (er) {
+      setDisablePaymentButton(false);
       notificationWithTimeout(paymentErrorNotification);
       console.log(er);
     }
@@ -148,12 +155,21 @@ const StripeForm: React.FC<Props> = ({
           Back
         </Button>
         <Button
+          size="large"
           variant="contained"
           color="primary"
-          className={classes.button}
+          className={[classes.button, classes.payButton].join(' ')}
           onClick={handleSubmit}
-          disabled={!stripe}>
-          Pay
+          disabled={!stripe || disablePaymentButton}>
+          {disablePaymentButton ? (
+            <CircularProgress
+              className={classes.circularProgress}
+              size={26}
+              thickness={7}
+            />
+          ) : (
+            'Pay'
+          )}
         </Button>
       </div>
     </>
