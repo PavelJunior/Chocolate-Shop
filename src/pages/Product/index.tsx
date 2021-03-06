@@ -5,7 +5,10 @@ import Error404 from '../../components/Error404';
 import {Select, InputLabel, MenuItem, Button, Grid} from '@material-ui/core';
 
 import {connect} from 'react-redux';
-import {Dispatch} from 'redux';
+import {
+  addToCartSuccessNotification,
+  addToCartMaxQtyNotification,
+} from '../../components/PrebuiltNotifications';
 
 import {ShopStateProduct} from '../../store/types/shop';
 import {AppState} from '../../store/configureStore';
@@ -77,28 +80,14 @@ const Product: React.FC<Props> = ({
     return option;
   };
 
-  const successfulNotification: NotificationItem = {
-    id: new Date().getTime(),
-    type: 'success',
-    text: 'Product added to the cart successfully!',
-    lifeTime: 7000,
-  };
-
-  const warningNotification: NotificationItem = {
-    id: new Date().getTime(),
-    type: 'warning',
-    text: 'You added maximum quantity of this product in your cart!',
-    lifeTime: 7000,
-  };
-
   const onAddToCartClick = () => {
     onAddToCart(match.params.id, quantity);
     if (product === undefined) return;
 
     if (quantityInCart + quantity > product.maximumQuantity) {
-      notificationWithTimeout(warningNotification);
+      notificationWithTimeout(addToCartMaxQtyNotification);
     } else {
-      notificationWithTimeout(successfulNotification);
+      notificationWithTimeout(addToCartSuccessNotification);
     }
   };
 

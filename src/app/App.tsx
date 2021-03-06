@@ -1,7 +1,7 @@
 import React, {memo, useEffect, useState} from 'react';
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 import Header from '../components/Header';
-import Notifications from '../components/Notifications';
+import NotificationsContainer from '../components/NotificationsContainer';
 import ScrollToTop from '../components/ScrollToTop';
 import {routes} from '../routes';
 import {fetchProducts, loadCart} from '../store/actions/shop';
@@ -56,7 +56,7 @@ const App: React.FC<LinkDispatchProps> = ({getProducts, getCart}) => {
   return (
     <Router>
       <Header />
-      <Notifications />
+      <NotificationsContainer />
       <ScrollToTop />
       {dataLoaded && (
         <Container>

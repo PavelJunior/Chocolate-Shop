@@ -15,9 +15,12 @@ import {useStyles} from '../styles';
 
 import {CardElement, useStripe, useElements} from '@stripe/react-stripe-js';
 import axios from 'axios';
+import {paymentErrorNotification} from '../../PrebuiltNotifications';
 import {ShopStateCartItem} from '../../../store/types/shop';
 import {RouteComponentProps} from '../../../routes/types';
 import {withRouter} from 'react-router';
+import {addNotificationWithTimeout} from '../../../store/actions/notification';
+import {NotificationItem} from '../../../store/types/notification';
 
 interface LinkStateProps {
   form: CheckoutForm;
@@ -26,6 +29,7 @@ interface LinkStateProps {
 
 interface LinkDispatchProps {
   onCheckoutStepChange: ChangeCheckoutStep;
+  notificationWithTimeout: (notification: NotificationItem) => void;
   emptyCart: () => void;
 }
 
@@ -39,6 +43,7 @@ const StripeForm: React.FC<Props> = ({
   history,
   onCheckoutStepChange,
   emptyCart,
+  notificationWithTimeout,
 }) => {
   const classes = useStyles();
   const stripe = useStripe();
@@ -66,6 +71,7 @@ const StripeForm: React.FC<Props> = ({
         history.push('/order-success', {orderNumber: order.data._id});
       }
     } catch (er) {
+      notificationWithTimeout(paymentErrorNotification);
       console.log(er);
     }
   };
@@ -165,6 +171,8 @@ let mapDispatchToProps = (
   dispatch: Dispatch<AppActions>,
 ): LinkDispatchProps => ({
   onCheckoutStepChange: (step) => dispatch(changeStepValue(step)),
+  notificationWithTimeout: (notification) =>
+    addNotificationWithTimeout(notification, dispatch),
   emptyCart: () => dispatch(deleteEverythingFromCart()),
 });
 
