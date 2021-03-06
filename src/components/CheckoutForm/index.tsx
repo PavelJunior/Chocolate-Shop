@@ -15,16 +15,16 @@ interface LinkStateProps {
 
 const CheckoutForm: React.FC<LinkStateProps> = ({step}) => {
   const classes = useStyles();
-  const steps = ['Shipping address', 'Payment details', 'Review your order'];
+  const steps = ['Shipping address', 'Review your order', 'Payment details'];
 
   const getStepContent = (step: number) => {
     switch (step) {
       case 0:
         return <AddressForm />;
       case 1:
-        return <PaymentForm />;
-      case 2:
         return <Review />;
+      case 2:
+        return <PaymentForm />;
       default:
         throw new Error('Unknown step');
     }

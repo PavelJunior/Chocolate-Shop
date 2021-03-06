@@ -56,26 +56,6 @@ const Review: React.FC<Props> = ({
     return [form.firstName, form.lastName].join(' ');
   };
 
-  const fullPaymentInfo = () => {
-    const payments = [
-      {name: 'Card type', detail: 'Visa'},
-      {name: 'Card holder', detail: fullNameString()},
-      {name: 'Card number', detail: form.cardNumber},
-      {name: 'Expiry date', detail: form.cardExpiration},
-    ];
-
-    return payments.map((payment) => (
-      <React.Fragment key={payment.name}>
-        <Grid item xs={6}>
-          <Typography gutterBottom>{payment.name}</Typography>
-        </Grid>
-        <Grid item xs={6}>
-          <Typography gutterBottom>{payment.detail}</Typography>
-        </Grid>
-      </React.Fragment>
-    ));
-  };
-
   const calculateTotal = () => {
     let total = 0;
     cart.forEach((p) => {
@@ -86,7 +66,7 @@ const Review: React.FC<Props> = ({
   };
 
   const submitOrder = () => {
-    onCheckoutStepChange(3);
+    onCheckoutStepChange(2);
     emptyCart();
   };
 
@@ -116,30 +96,28 @@ const Review: React.FC<Props> = ({
       </Typography>
       <List disablePadding>{productsInfo()}</List>
       <Grid container spacing={2}>
-        <Grid item xs={12} sm={6}>
+        <Grid item>
           <Typography variant="h6" gutterBottom className={classes.title}>
             Shipping
           </Typography>
           <Typography gutterBottom>{fullNameString()}</Typography>
           <Typography gutterBottom>{fullAddressString()}</Typography>
         </Grid>
-        <Grid item container direction="column" xs={12} sm={6}>
-          <Typography variant="h6" gutterBottom className={classes.title}>
-            Payment details
-          </Typography>
-          <Grid container>{fullPaymentInfo()}</Grid>
-        </Grid>
-        <div className={classes.buttons}>
-          <Button
-            onClick={() => submitOrder()}
-            variant="contained"
-            color="primary"
-            type="submit"
-            className={classes.button}>
-            Place order
-          </Button>
-        </div>
       </Grid>
+      <div className={classes.buttons}>
+        <Button
+          onClick={() => onCheckoutStepChange(0)}
+          className={classes.button}>
+          Back
+        </Button>
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={submitOrder}
+          className={classes.button}>
+          Confirm
+        </Button>
+      </div>
     </>
   );
 };

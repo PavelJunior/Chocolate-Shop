@@ -22,6 +22,11 @@ export const useStyles = makeStyles((theme) => ({
       padding: theme.spacing(3),
     },
   },
+  checkoutCardInput: {
+    padding: '10px 0',
+    marginTop: '20px',
+    borderBottom: '1px solid black',
+  },
   stepper: {
     backgroundColor: '#f8f8f4',
     padding: theme.spacing(3, 0, 5),
