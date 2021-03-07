@@ -27,8 +27,8 @@ interface LinkStateProps {
 const Header: React.FC<LinkStateProps> = ({itemsInCart}) => {
   const navigationLinks: NavigationItem[] = [
     {title: `home`, path: `/`},
+    {title: `about us`, path: `/about-us`},
     {title: `cart`, path: `/cart`},
-    {title: `about us`, path: `/`},
   ];
 
   const navLinkComponents = navigationLinks.map(({title, path}) => (
