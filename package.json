@@ -47,7 +47,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "start": "node backend/server.js",
-    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=npm install && run build"
+    "heroku-postbuild": "npm install && run build"
   },
   "eslintConfig": {
     "extends": [
