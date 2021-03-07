@@ -4,7 +4,6 @@ import {
   Button,
   Grid,
   Typography,
-  TextField,
   List,
   ListItem,
   ListItemText,
@@ -15,7 +14,6 @@ import {connect} from 'react-redux';
 
 import {AppActions} from '../../../store/types/actions';
 import {changeStepValue} from '../../../store/actions/checkout';
-import {deleteEverythingFromCart} from '../../../store/actions/shop';
 import {ChangeCheckoutStep, CheckoutForm} from '../../../store/types/checkout';
 import {AppState} from '../../../store/configureStore';
 import {ShopStateCartItem} from '../../../store/types/shop';
