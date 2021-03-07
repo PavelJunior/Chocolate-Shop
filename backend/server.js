@@ -4,10 +4,15 @@ const connectDB = require('./config/db');
 const productRoutes = require('./routes/productRoutes');
 const paymentRoutes = require('./routes/paymentRoutes');
 const orderRoutes = require('./routes/orderRoutes');
+const path = require('path');
 
 connectDB();
 
 const app = express();
+
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static('build'));
+}
 
 app.use(express.json());
 
