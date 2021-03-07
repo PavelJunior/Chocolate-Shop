@@ -4,7 +4,7 @@ const connectDB = require('./config/db');
 const productRoutes = require('./routes/productRoutes');
 const paymentRoutes = require('./routes/paymentRoutes');
 const orderRoutes = require('./routes/orderRoutes');
-const path = require('path');
+const bodyParser = require('body-parser');
 
 connectDB();
 
@@ -15,6 +15,11 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 app.use(express.json());
+app.use(
+  bodyParser.urlencoded({
+    extended: true,
+  }),
+);
 
 app.use('/api/products', productRoutes);
 app.use('/api/payment', paymentRoutes);
