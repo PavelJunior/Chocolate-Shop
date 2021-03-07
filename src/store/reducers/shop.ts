@@ -55,6 +55,7 @@ const reducer = (
     case REMOVE_PRODUCT_FROM_CART: {
       let updatedCart = [...state.cart];
       let indexToRemove = updatedCart.findIndex((i) => i.id === action.id);
+      if (indexToRemove === undefined) return state;
       updatedCart.splice(indexToRemove, 1);
 
       return {...state, cart: updatedCart};
@@ -63,8 +64,8 @@ const reducer = (
     case CHANGE_QUANTITY_IN_CART: {
       let updatedCart = [...state.cart];
       let indexToUpdate = updatedCart.findIndex((i) => i.id === action.id);
+      if (indexToUpdate === undefined) return state;
       let processingItem = updatedCart[indexToUpdate];
-      if (processingItem === undefined) return state;
       const newQty = getNewQty(
         processingItem.maximumQuantity,
         action.quantity,

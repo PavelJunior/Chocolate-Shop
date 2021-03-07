@@ -13,7 +13,7 @@ import {ChangeCheckoutStep, CheckoutForm} from '../../../store/types/checkout';
 
 import {CardElement, useStripe, useElements} from '@stripe/react-stripe-js';
 import axios from 'axios';
-import {paymentErrorNotification} from '../../PrebuiltNotifications';
+import {getPaymentErrorNotification} from '../../PrebuiltNotifications';
 import {ShopStateCartItem} from '../../../store/types/shop';
 import {RouteComponentProps} from '../../../routes/types';
 import {withRouter} from 'react-router';
@@ -78,7 +78,7 @@ const StripeForm: React.FC<Props> = ({
       }
     } catch (er) {
       setDisablePaymentButton(false);
-      notificationWithTimeout(paymentErrorNotification);
+      notificationWithTimeout(getPaymentErrorNotification());
       console.log(er);
     }
   };

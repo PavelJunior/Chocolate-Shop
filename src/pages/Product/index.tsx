@@ -6,8 +6,8 @@ import {Select, InputLabel, MenuItem, Button, Grid} from '@material-ui/core';
 
 import {connect} from 'react-redux';
 import {
-  addToCartSuccessNotification,
-  addToCartMaxQtyNotification,
+  getAddToCartMaxQtyNotification,
+  getAddToCartSuccessNotification,
 } from '../../components/PrebuiltNotifications';
 
 import {ShopStateProduct} from '../../store/types/shop';
@@ -85,9 +85,9 @@ const Product: React.FC<Props> = ({
     if (product === undefined) return;
 
     if (quantityInCart + quantity > product.maximumQuantity) {
-      notificationWithTimeout(addToCartMaxQtyNotification);
+      notificationWithTimeout(getAddToCartMaxQtyNotification());
     } else {
-      notificationWithTimeout(addToCartSuccessNotification);
+      notificationWithTimeout(getAddToCartSuccessNotification());
     }
   };
 
