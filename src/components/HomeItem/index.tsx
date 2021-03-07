@@ -12,10 +12,20 @@ const HomeItem: React.FC<HomeItemProps> = ({price, name, images}) => {
   const [imageIndex, setImageIndex] = useState(0);
 
   useEffect(() => {
-    images.forEach((image: string) => {
-      const newImage = new Image();
-      newImage.src = `/images/${image}`;
-    });
+    const loadImages = async () => {
+      const promises: any = await images.map((image: string) => {
+        return new Promise((resolve: any, reject: any) => {
+          const newImage = new Image();
+          newImage.src = `/images/${image}`;
+          newImage.onload = resolve();
+          newImage.onerror = reject();
+        });
+      });
+
+      await Promise.all(promises);
+    };
+
+    loadImages();
   }, []);
 
   return (

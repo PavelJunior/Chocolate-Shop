@@ -3,12 +3,24 @@ import './styles.css';
 
 const AboutUs: React.FC = () => {
   useEffect(() => {
-    ['about-us-1.jpeg', 'about-us-2.jpeg', 'about-us-3.jpeg'].forEach(
-      (image: string) => {
-        const newImage = new Image();
-        newImage.src = `/images/${image}`;
-      },
-    );
+    const loadImages = async () => {
+      const promises: any = await [
+        'about-us-1.jpeg',
+        'about-us-2.jpeg',
+        'about-us-3.jpeg',
+      ].map((image: string) => {
+        return new Promise((resolve: any, reject: any) => {
+          const newImage = new Image();
+          newImage.src = `/images/${image}`;
+          newImage.onload = resolve();
+          newImage.onerror = reject();
+        });
+      });
+
+      await Promise.all(promises);
+    };
+
+    loadImages();
   }, []);
 
   return (
