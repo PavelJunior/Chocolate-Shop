@@ -2,7 +2,6 @@ require('dotenv').config({path: __dirname + '/../.env'});
 const stripe = require('stripe')(process.env.STRIPE_PRIVATE_KEY);
 
 const createPayment = async (req, res) => {
-  console.log('here');
   try {
     const intent = await stripe.paymentIntents.create({
       payment_method: req.body.payment_method_id,

@@ -1,7 +1,16 @@
-import React, {memo} from 'react';
+import React, {memo, useEffect} from 'react';
 import './styles.css';
 
 const AboutUs: React.FC = () => {
+  useEffect(() => {
+    ['about-us-1.jpeg', 'about-us-2.jpeg', 'about-us-3.jpeg'].forEach(
+      (image: string) => {
+        const newImage = new Image();
+        newImage.src = `/images/${image}`;
+      },
+    );
+  }, []);
+
   return (
     <div className="about-us">
       <h2>Our family promise</h2>
