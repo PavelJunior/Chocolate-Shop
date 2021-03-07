@@ -13,7 +13,7 @@ const HomeItem: React.FC<HomeItemProps> = ({price, name, images}) => {
 
   useEffect(() => {
     const loadImages = async () => {
-      const promises: any = await images.map((image: string) => {
+      const promises: Promise<string>[] = await images.map((image: string) => {
         return new Promise((resolve: any, reject: any) => {
           const newImage = new Image();
           newImage.src = `/images/${image}`;

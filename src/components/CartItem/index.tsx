@@ -4,7 +4,6 @@ import ClearIcon from '@material-ui/icons/Clear';
 import {TableCell, TableRow, Select, MenuItem} from '@material-ui/core';
 
 import {connect} from 'react-redux';
-import {Dispatch} from 'redux';
 
 import {ShopStateCartItem} from '../../store/types/shop';
 import {AppActions} from '../../store/types/actions';

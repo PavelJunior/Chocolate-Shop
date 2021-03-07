@@ -4,7 +4,7 @@ import './styles.css';
 const AboutUs: React.FC = () => {
   useEffect(() => {
     const loadImages = async () => {
-      const promises: any = await [
+      const promises: Promise<string>[] = await [
         'about-us-1.jpeg',
         'about-us-2.jpeg',
         'about-us-3.jpeg',
@@ -46,7 +46,7 @@ const AboutUs: React.FC = () => {
         NFC. We are proud to participate in a global movement towards
         sustainable and regenerative agriculture.
       </p>
-      <img src="/images/about-us-1.jpeg" />
+      <img src="/images/about-us-2.jpeg" />
       <h2>Beautiful design</h2>
       <p>
         Husband and wife design duo (and longtime Mast family friends) Carla
@@ -56,7 +56,7 @@ const AboutUs: React.FC = () => {
         abstract designs and breathtaking simplicity make every bar as delicious
         on the outside as it is on the inside.
       </p>
-      <img src="/images/about-us-1.jpeg" />
+      <img src="/images/about-us-3.jpeg" />
     </div>
   );
 };

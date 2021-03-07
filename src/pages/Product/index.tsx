@@ -1,4 +1,4 @@
-import React, {useState, memo, useEffect} from 'react';
+import React, {useState, memo, useEffect, ChangeEvent, FormEvent} from 'react';
 
 import ImageGallery from 'react-image-gallery';
 import Error404 from '../../components/Error404';
@@ -51,12 +51,29 @@ const Product: React.FC<Props> = ({
   const [quantity, setQuantity] = useState<number>(1);
   const [images, setImages] = useState<ImageForGallery[]>([]);
 
-  const onSelectChange = (e: any) => {
-    setQuantity(e.target.value);
+  const onSelectChange = (value: any) => {
+    setQuantity(value);
   };
 
   useEffect(() => {
     if (product) {
+      const loadImages = async () => {
+        const promises: Promise<string>[] = await product.images.map(
+          (image: string) => {
+            return new Promise((resolve: any, reject: any) => {
+              const newImage = new Image();
+              newImage.src = `/images/${image}`;
+              newImage.onload = resolve();
+              newImage.onerror = reject();
+            });
+          },
+        );
+
+        await Promise.all(promises);
+      };
+
+      loadImages();
+
       const renderedImages = product.images.map((i) => {
         return {
           original: `/images/${i}`,
@@ -111,7 +128,7 @@ const Product: React.FC<Props> = ({
         <Select
           id="label"
           value={quantity}
-          onChange={(e) => onSelectChange(e)}
+          onChange={(e) => onSelectChange(e.target.value)}
           className="product-select">
           {selectQuantityOptions(product.maximumQuantity)}
         </Select>
