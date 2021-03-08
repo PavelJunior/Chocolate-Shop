@@ -68,7 +68,10 @@ const Cart: React.FC<LinkStateProps> = ({cart}) => {
           </Link>
         </>
       ) : (
-        <p>You have nothing in your shopping cart.</p>
+        <p>
+          You have nothing in your shopping cart.{' '}
+          <Link to={'/'}>Go to the main page.</Link>
+        </p>
       )}
     </>
   );

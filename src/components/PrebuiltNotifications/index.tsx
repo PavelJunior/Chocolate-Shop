@@ -21,3 +21,11 @@ export const getAddToCartMaxQtyNotification = (): NotificationItem => ({
   text: 'You added maximum quantity of this product in your cart!',
   lifeTime: 7000,
 });
+
+export const getPaymentTestDataNotification = (): NotificationItem => ({
+  id: new Date().getTime(),
+  type: 'info',
+  text:
+    'Try test credit card to check payment system! Card number: 4242 4242 4242 4242, Exp date: 04/24, CVC: 242, ZIP: 42424',
+  lifeTime: 50000,
+});

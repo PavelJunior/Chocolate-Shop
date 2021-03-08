@@ -1,4 +1,4 @@
-import React, {memo, useState} from 'react';
+import React, {memo, useEffect, useState} from 'react';
 
 import {Button, Typography, CircularProgress} from '@material-ui/core';
 
@@ -13,7 +13,10 @@ import {ChangeCheckoutStep, CheckoutForm} from '../../../store/types/checkout';
 
 import {CardElement, useStripe, useElements} from '@stripe/react-stripe-js';
 import axios from 'axios';
-import {getPaymentErrorNotification} from '../../PrebuiltNotifications';
+import {
+  getPaymentErrorNotification,
+  getPaymentTestDataNotification,
+} from '../../PrebuiltNotifications';
 import {ShopStateCartItem} from '../../../store/types/shop';
 import {RouteComponentProps} from '../../../routes/types';
 import {withRouter} from 'react-router';
@@ -51,6 +54,10 @@ const StripeForm: React.FC<Props> = ({
   const [disablePaymentButton, setDisablePaymentButton] = useState<boolean>(
     false,
   );
+
+  useEffect(() => {
+    notificationWithTimeout(getPaymentTestDataNotification());
+  }, []);
 
   const handleSubmit = async () => {
     setDisablePaymentButton(true);

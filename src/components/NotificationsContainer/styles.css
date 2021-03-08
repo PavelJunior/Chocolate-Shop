@@ -45,9 +45,9 @@
 
 .notifications {
     z-index: 1000;
-    bottom: 24px;
+    bottom: 40px;
     position: fixed;
-    left: 24px;
+    left: 20px;
     width: 300px;
 }
 
