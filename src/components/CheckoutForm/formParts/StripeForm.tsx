@@ -64,7 +64,6 @@ const StripeForm: React.FC<Props> = ({
     try {
       const billingDetails = getPaymentMethodBillingDetails();
 
-      console.log(elements!.getElement(CardElement));
       const {paymentMethod} = await stripe!.createPaymentMethod({
         type: 'card',
         card: elements!.getElement(CardElement)!,

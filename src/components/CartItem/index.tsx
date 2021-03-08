@@ -36,7 +36,7 @@ const CartItem: React.FC<Props> = ({
     let option = [];
     for (let i = 1; i <= maxQty; i++) {
       option.push(
-        <MenuItem value={i} className="product-select-item">
+        <MenuItem value={i} className="product-select-item" key={i}>
           {i}
         </MenuItem>,
       );

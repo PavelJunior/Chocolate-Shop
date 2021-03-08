@@ -42,13 +42,13 @@ const App: React.FC<LinkDispatchProps> = ({getProducts, getCart}) => {
     }
   }, []);
 
-  const routeComponent = routes.map((route) => {
+  const routeComponent = routes.map((route, index) => {
     return (
       <Route
         path={route.url}
         component={route.component}
         exact={route.exact}
-        key={route.name}
+        key={index}
       />
     );
   });

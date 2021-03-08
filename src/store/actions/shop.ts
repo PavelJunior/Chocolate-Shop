@@ -69,7 +69,6 @@ export const fetchProducts = (): ThunkAction<
 > => {
   return async (dispatch: Dispatch<AppActions>): Promise<void> => {
     const {data} = await axios.get('/api/products');
-    console.log(data);
 
     dispatch({type: FETCH_PRODUCTS, products: data});
   };

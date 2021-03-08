@@ -49,15 +49,15 @@ const Cart: React.FC<LinkStateProps> = ({cart}) => {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {cart.map((item) => (
-                  <CartItem item={item} />
+                {cart.map((item, index) => (
+                  <CartItem item={item} key={index} />
                 ))}
-              </TableBody>
-              <TableBody>
-                <TableCell></TableCell>
-                <TableCell></TableCell>
-                <TableCell></TableCell>
-                <TableCell>Total: ${total()}</TableCell>
+                <TableRow>
+                  <TableCell></TableCell>
+                  <TableCell></TableCell>
+                  <TableCell></TableCell>
+                  <TableCell>Total: ${total()}</TableCell>
+                </TableRow>
               </TableBody>
             </Table>
           </TableContainer>

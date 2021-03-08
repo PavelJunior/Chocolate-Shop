@@ -21,7 +21,6 @@ const SideDrawer: React.FC<DrawerProps> = ({navigationLinks}) => {
   const [menuOpen, setMenuOpen] = useState<boolean>(false);
 
   const toggleDrawer = (open: boolean) => (event: any) => {
-    console.log(event);
     if (
       event.type === 'keydown' &&
       (event.key === 'Tab' || event.key === 'Shift')
@@ -46,7 +45,7 @@ const SideDrawer: React.FC<DrawerProps> = ({navigationLinks}) => {
     </div>
   );
   const navLinkComponents = navigationLinks.map(({title, path}) => (
-    <ListItem className="navbar-list-item" button>
+    <ListItem className="navbar-list-item" key={title} button>
       <Link to={path} className="navbar-item-link">
         <ListItemText
           primary={
