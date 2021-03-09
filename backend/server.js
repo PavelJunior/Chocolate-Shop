@@ -25,9 +25,6 @@ app.use(
 app.use('/api/products', productRoutes);
 app.use('/api/payment', paymentRoutes);
 app.use('/api/order', orderRoutes);
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '/build/index.html'));
-});
 
 const PORT = process.env.PORT || 5000;
 
