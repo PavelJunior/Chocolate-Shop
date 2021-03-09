@@ -1,5 +1,5 @@
 import React, {memo, useEffect, useState} from 'react';
-import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
+import {Switch, Route, HashRouter as Router} from 'react-router-dom';
 import Header from '../components/Header';
 import NotificationsContainer from '../components/NotificationsContainer';
 import ScrollToTop from '../components/ScrollToTop';
