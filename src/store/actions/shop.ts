@@ -57,9 +57,15 @@ export const changeQuantityInCart = (id: string, quantity: number) => (
   localStorage.setItem('shoppingCart', JSON.stringify(getState().shop.cart));
 };
 
-export const deleteEverythingFromCart = (): AppActions => ({
-  type: DELETE_EVERYTHING_FROM_CART,
-});
+export const deleteEverythingFromCart = () => (
+  dispatch: Dispatch<AppActions>,
+) => {
+  dispatch({
+    type: DELETE_EVERYTHING_FROM_CART,
+  });
+
+  localStorage.setItem('shoppingCart', JSON.stringify([]));
+};
 
 export const fetchProducts = (): ThunkAction<
   Promise<void>,

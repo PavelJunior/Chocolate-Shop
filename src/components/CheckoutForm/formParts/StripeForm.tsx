@@ -24,6 +24,7 @@ import {addNotificationWithTimeout} from '../../../store/actions/notification';
 import {NotificationItem} from '../../../store/types/notification';
 
 import {useStyles} from '../styles';
+import {ThunkDispatch} from 'redux-thunk';
 
 interface LinkStateProps {
   form: CheckoutForm;
@@ -190,7 +191,7 @@ let mapStateToProps = (state: AppState): LinkStateProps => {
 };
 
 let mapDispatchToProps = (
-  dispatch: Dispatch<AppActions>,
+  dispatch: ThunkDispatch<any, any, AppActions>,
 ): LinkDispatchProps => ({
   onCheckoutStepChange: (step) => dispatch(changeStepValue(step)),
   notificationWithTimeout: (notification) =>
